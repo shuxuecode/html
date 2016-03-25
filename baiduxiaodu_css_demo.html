@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title>百小度css动画演示demo</title>
+  <meta charset="utf-8" content="EditPlus">
+
+<style type="text/css">
+
+div{
+    height:148px;
+	width:148px;
+
+	animation : run 2000ms steps(21) infinite 0s;
+    -webkit-animation : run 2000ms steps(21) infinite 0s;
+	-moz-animation : run 2000ms steps(21) infinite 0s;
+	-o-animation : run 2000ms steps(21) infinite 0s;
+} 
+
+@keyframes run {
+    100% { background-position:-3108px 0; }
+}
+
+@-moz-keyframes run /* Firefox */
+{
+    100% { background-position:-3108px 0; }
+}
+
+@-webkit-keyframes run /* Safari 和 Chrome */
+{
+    100% { background-position:-3108px 0; }
+}
+
+@-o-keyframes run /* Opera */
+{
+    100% { background-position:-3108px 0; }
+}
+
+
+
+</style>
+
+ </head>
+
+ <body>
+  <div style="background: url(emo_like.png) 0px 0px no-repeat;"></div>
+  <div style="background: url(emo_happy.png) 0px 0px no-repeat;"></div>
+  <div style="background: url(emo_angry.png) 0px 0px no-repeat;"></div>
+  <div style="background: url(emo_sad.png) 0px 0px no-repeat;"></div>
+ </body>
+</html>
