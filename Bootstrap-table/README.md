@@ -63,7 +63,6 @@
 
 ```
 <table id="table"></table>
-
 ```
 
 - 3、编写JavaScript代码渲染表格
@@ -147,13 +146,58 @@ $("#table").bootstrapTable({ // 对应table标签的id
 
 ```
 
+## 文档
+
+### 表格参数
+
+|  名称     |  标签  | 类型 |  默认  |  描述  |
+| :------- | :----- | :----- | :---- | :---- |
+| method    | data-method      | String | 'get' | 服务器数据的请求方式 'get' or 'post' |
+
+
+
+
+### 列参数
+
+| Name     | Attribute    | Type  | Default  | Description     |
+| :------------- | :------------- | :------------- | :------------- | :------------- |
+| radio      | data-radio       | Boolean     | false      | True to show a radio. The radio column has fixed width.      |
+
+
+### 事件
+
+| Option 事件  | jQuery 事件  | 参数  | 描述  |
+| :----- | :------ | :------ | :------ |
+| onClickRow   | click-row.bs.table       | row, $element | 当用户点击某一行的时候触发，参数包括：<br/> row：点击行的数据， <br/> $element：tr 元素， <br/> field：点击列的 field 名称。 |
+
+
+
+### 方法
+
+| 名称     | 参数     |  描述 |
+| :------------- | :------------- | :------------- |
+| getOptions      | none      | 返回表格的 Options。 |
 
 
 
 
 
 
-
-
+--
+-
+-
+-
+-
+--
+-
+--
+-
+--
+-
+-
+-
+-
+-
+-
 
 ----------------------
