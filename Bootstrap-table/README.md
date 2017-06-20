@@ -153,6 +153,27 @@ $("#table").bootstrapTable({ // 对应table标签的id
 |  名称     |  标签  | 类型 |  默认  |  描述  |
 | :------- | :----- | :----- | :---- | :---- |
 | method    | data-method      | String | 'get' | 服务器数据的请求方式 'get' or 'post' |
+| url	| data-url|String | undefined |服务器数据的加载地址 |
+| undefinedText | data-undefined-text | String | '-' | 当数据为 undefined 时显示的字符 |
+| striped | data-striped | Boolean | false | 设置为 true 会有隔行变色效果 |
+| columns | - | Array | [] | 列配置项,详情请查看 列参数 表格. |
+| data | - | Array | [] | 加载json格式的数据 |
+| cache	 | data-cache | Boolean  |true  | 设置为 false 禁用 AJAX 数据缓存 |
+| dataType | data-data-type | String | 'json' | 服务器返回的数据类型 |
+| queryParams | data-query-params | Function | function(params) { <br/>return params; <br/>} | 请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，<br/>例如 toolbar 中的参数 <br/>如果 queryParamsType = 'limit' ,返回参数必须包含 <br/> limit, offset, search, sort, order <br/> 否则, 需要包含: pageSize, pageNumber, searchText, sortName, sortOrder.  <br/> 返回false将会终止请求 |
+| pagination | data-pagination | Boolean | false | 设置为 true 会在表格底部显示分页条 |
+| paginationLoop | data-pagination-loop | Boolean | true | 设置为 true 启用分页条无限循环的功能。 |
+| sidePagination | data-side-pagination | String | 'client' | 设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法 |
+| pageNumber | data-page-number | Number | 1 | 如果设置了分页，首页页码 |
+| pageSize | data-page-size | Number | 10 | 如果设置了分页，页面数据条数 |
+| pageList | data-page-list | Array | [10, 25, 50, 100, All] | 如果设置了分页，设置可供选择的页面数据条数。设置为All 则显示所有记录。 |
+| search | data-search | Boolean | false | 是否启用搜索框 |
+| searchOnEnterKey | data-search-on-enter-key | Boolean | false | 设置为 true时，按回车触发搜索方法，否则自动触发搜索方法 |
+| showRefresh | data-show-refresh | Boolean | false | 是否显示 刷新按钮 |
+| clickToSelect | data-click-to-select | Boolean | false	 | 设置true 将在点击行时，自动选择rediobox 和 checkbox |
+| singleSelect | data-single-select | Boolean | false | 设置True 将禁止多选 |
+|  |  |  |  |  |
+
 
 
 
@@ -162,6 +183,23 @@ $("#table").bootstrapTable({ // 对应table标签的id
 | Name     | Attribute    | Type  | Default  | Description     |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
 | radio      | data-radio       | Boolean     | false      | True to show a radio. The radio column has fixed width.      |
+| checkbox | data-checkbox | Boolean | false |True to show a checkbox. The checkbox column has fixed width.  |
+| field  | data-field | String | undefined |The column field name.  |
+| title | data-title	 | String | undefined | The column title text. |
+| align | data-align | String | undefined | Indicate how to align the column data. 'left', 'right', 'center' can be used. |
+| halign | data-halign | String | undefined	 | Indicate how to align the table header. 'left', 'right', 'center' can be used. |
+| valign | data-valign | String | undefined | Indicate how to align the cell data. 'top', 'middle', 'bottom' can be used. |
+| width | data-width	 | Number {Pixels or Percentage} | undefined | The width of column. If not defined, the width will auto expand to fit its contents. Also you can add '%' to your number and the bootstrapTable will use the percentage unit, otherwise, you can add or no the 'px' to your number and then the bootstrapTable will use the pixels |
+| visible | data-visible | Boolean | true | False to hide the columns item. |
+| formatter | data-formatter | Function	 | undefined | The context (this) is the column Object.
+The cell formatter function, take three parameters:
+value: the field value.
+row: the row record data.
+index: the row index. |
+|  |  |  |  |  |
+|  |  |  |  |  |
+|  |  |  |  |  |
+
 
 
 ### 事件
@@ -169,14 +207,52 @@ $("#table").bootstrapTable({ // 对应table标签的id
 | Option 事件  | jQuery 事件  | 参数  | 描述  |
 | :----- | :------ | :------ | :------ |
 | onClickRow   | click-row.bs.table       | row, $element | 当用户点击某一行的时候触发，参数包括：<br/> row：点击行的数据， <br/> $element：tr 元素， <br/> field：点击列的 field 名称。 |
+| onDblClickRow | dbl-click-row.bs.table | row, $element | 当用户双击某一行的时候触发，参数包括：
+row：点击行的数据，
+$element：tr 元素，
+field：点击列的 field 名称。 |
+| onClickCell | click-cell.bs.table | field, value, row, $element | 当用户点击某一列的时候触发，参数包括：
+field：点击列的 field 名称，
+value：点击列的 value 值，
+row：点击列的整行数据，
+$element：td 元素。 |
+| onDblClickCell | dbl-click-cell.bs.table | field, value, row, $element | 当用户双击某一列的时候触发，参数包括：
+field：点击列的 field 名称，
+value：点击列的 value 值，
+row：点击列的整行数据，
+$element：td 元素。 |
+|  |  |  |  |
 
 
 
 ### 方法
 
+使用方法的语法：$('#table').bootstrapTable('method', parameter);。
+
+
 | 名称     | 参数     |  描述 |
 | :------------- | :------------- | :------------- |
 | getOptions      | none      | 返回表格的 Options。 |
+| getSelections | none | 返回所选的行，当没有选择任何行的时候返回一个空数组。 |
+| getAllSelections | none | 返回所有选择的行，包括搜索过滤前的，当没有选择任何行的时候返回一个空数组。 |
+| load | data | 加载数据到表格中，旧数据会被替换。 |
+| append | data | 添加数据到表格在现有数据之后。 |
+| prepend | data | 插入数据到表格在现有数据之前。 |
+| insertRow | params | 插入新行，参数包括：
+index: 要插入的行的 index。
+row: 行的数据，Object 对象。 |
+| refresh | params | Refresh the remote server data, you can set {silent: true} to refresh the data silently, and set {url: newUrl} to change the url. To supply query params specific to this request, set {query: {foo: 'bar'}} |
+| showLoading | none | Show loading status. |
+|hideLoading  | none | Hide loading status. |
+| check | index | Check a row, the row index start with 0. |
+| uncheck | index | Uncheck a row, the row index start with 0. |
+| destroy | none |  Destroy the bootstrap table. |
+| selectPage | page | 跳到指定的页。 |
+| prevPage | none | 跳到上一页。 |
+| nextPage | none | 跳到下一页。  |
+|  |  |  |
+|  |  |  |
+|  |  |  |
 
 
 
