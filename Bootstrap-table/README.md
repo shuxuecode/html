@@ -6,6 +6,12 @@
 #### Github地址： [https://github.com/wenzhixin/bootstrap-table](https://github.com/wenzhixin/bootstrap-table)
 
 
+<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=wenzhixin&amp;repo=bootstrap-table&amp;type=watch&amp;count=true" width="100" height="20"  frameborder="0" scrolling="0" title="Star on GitHub"></iframe>
+
+<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=wenzhixin&amp;repo=bootstrap-table&amp;type=fork&amp;count=true" width="102" height="20" frameborder="0" scrolling="0" title="Fork on GitHub"></iframe>
+
+<iframe class="github-btn" src="http://ghbtns.com/github-btn.html?user=wenzhixin&amp;type=follow&amp;count=true" width="175" height="20" frameborder="0" scrolling="0"  title="Follow on GitHub"></iframe>
+
 > 官网介绍：
 > 基于 Bootstrap 的 jQuery 表格插件，通过简单的设置，就可以拥有强大的单选、多选、排序、分页，以及编辑、导出、过滤（扩展）等等的功能。
 
@@ -65,7 +71,21 @@
 <table id="table"></table>
 ```
 
-- 3、编写JavaScript代码渲染表格
+- 3、使用data属性来渲染表格 （简单方式）
+
+```
+<table data-toggle="table" data-url="data1.json">
+    <thead>
+        <tr>
+            <th data-field="id">序号</th>
+            <th data-field="name">名称</th>
+            <th data-field="price">价格</th>
+        </tr>
+    </thead>
+</table>
+```
+
+- 4、编写JavaScript代码渲染表格 （推荐使用这种方式，代码阅读和扩展更为方便）
 
 在网页代码最下面插入js脚本，内容如下：
 
@@ -146,9 +166,22 @@ $("#table").bootstrapTable({ // 对应table标签的id
 
 ```
 
-## 文档
+## 组件文档
 
-### 表格参数
+### 一、表格参数
+
+设置表格如何显示，下面列举了常用的参数，更全的列表请访问官方网址：
+[http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/#表格参数](http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/#表格参数)
+
+使用方式如下：
+```
+$("#table").bootstrapTable({
+      method: "post",
+      url: "获取后台数据的url",
+      ... ...
+
+});      
+```
 
 |  名称     |  标签  | 类型 |  默认  |  描述  |
 | :------- | :----- | :----- | :---- | :---- |
@@ -172,65 +205,99 @@ $("#table").bootstrapTable({ // 对应table标签的id
 | showRefresh | data-show-refresh | Boolean | false | 是否显示 刷新按钮 |
 | clickToSelect | data-click-to-select | Boolean | false	 | 设置true 将在点击行时，自动选择rediobox 和 checkbox |
 | singleSelect | data-single-select | Boolean | false | 设置True 将禁止多选 |
-|  |  |  |  |  |
 
 
 
 
 
-### 列参数
+### 二、列参数
 
-| Name     | Attribute    | Type  | Default  | Description     |
+针对具体每一列展示的设置参数，最常用的为 title  和 field， 它们分别设置了表头显示文字和对应要显示的每项数据
+
+示例代码：
+```
+$("#table").bootstrapTable({
+      method: "post",
+      url: "获取后台数据的url",
+      columns: [
+          {
+              checkbox: true
+          }, {
+              title: '标准编号'
+              field: 'stdCode'
+          },
+          ... ...
+      ]
+});      
+```
+
+
+|  名称     |  标签  | 类型 |  默认  |  描述  |
 | :------------- | :------------- | :------------- | :------------- | :------------- |
-| radio      | data-radio       | Boolean     | false      | True to show a radio. The radio column has fixed width.      |
-| checkbox | data-checkbox | Boolean | false |True to show a checkbox. The checkbox column has fixed width.  |
-| field  | data-field | String | undefined |The column field name.  |
-| title | data-title	 | String | undefined | The column title text. |
-| align | data-align | String | undefined | Indicate how to align the column data. 'left', 'right', 'center' can be used. |
-| halign | data-halign | String | undefined	 | Indicate how to align the table header. 'left', 'right', 'center' can be used. |
-| valign | data-valign | String | undefined | Indicate how to align the cell data. 'top', 'middle', 'bottom' can be used. |
-| width | data-width	 | Number {Pixels or Percentage} | undefined | The width of column. If not defined, the width will auto expand to fit its contents. Also you can add '%' to your number and the bootstrapTable will use the percentage unit, otherwise, you can add or no the 'px' to your number and then the bootstrapTable will use the pixels |
-| visible | data-visible | Boolean | true | False to hide the columns item. |
-| formatter | data-formatter | Function	 | undefined | The context (this) is the column Object.
-The cell formatter function, take three parameters:
-value: the field value.
-row: the row record data.
-index: the row index. |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
+| title | data-title	 | String | undefined | 表头要显示的文本 |
+| field  | data-field | String | undefined | 要显示数据的字段名称，可以理解为json对象里的key  |
+| checkbox | data-checkbox | Boolean | false | 设置为True的时候 则显示一列checkbox组件，该列的宽度为固定宽度 |
+| radio      | data-radio       | Boolean     | false      | 设置为True的时候 则显示一列radio组件，该列的宽度为固定宽度   |
+| align | data-align | String | undefined | 设置单元格数据的左右对齐方式， 可选择的值有：'left', 'right', 'center'  |
+| valign | data-valign | String | undefined | 设置单元格数据的上下对齐方式， 可选择的值有：'top', 'middle', 'bottom' |
+| width | data-width	 | Number {Pixels or Percentage} | undefined | 设置列的宽度。如果没有设置的话则根据表格内容自适应宽度。设置的话，可以使用'%'百分比的方式，也可以设置要显示的像素值， 如果设置像素值的话可以不填'px'， 例如： width : 100  和  width : '100px'  ，效果是一样的 |
+| visible | data-visible | Boolean | true | 显示或隐藏该列， 默认显示， False为隐藏 |
+| formatter | data-formatter | Function	 | undefined | 单元格格式化函数，有三个参数：<br/>value： 该列的字段值；<br/>row： 这一行的数据对象；<br/>index： 行号，第几行，从0开始计算<br/>例子：<br/> ``` formatter : function(value, row, index){    return value + row.id + index; } ```
+
+关于列参数，更详细文档请访问[http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/#列参数
+](http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/#列参数
+)
 
 
 
-### 事件
+
+
+
+### 三、事件
+
+
+
+给表格绑定事件，代码：
+```
+$("#table").bootstrapTable({
+      method: "post",
+      url: "获取后台数据的url",
+      onLoadSuccess: function(){  //加载成功时执行
+            console.info("加载成功");
+      },
+      onLoadError: function(){  //加载失败时执行
+            console.info("加载数据失败");
+      }
+});      
+```
+
+
 
 | Option 事件  | jQuery 事件  | 参数  | 描述  |
 | :----- | :------ | :------ | :------ |
+| onLoadSuccess | load-success.bs.table | data | 请求加载远程服务器数据成功时的事件 |
+| onLoadError | load-error.bs.table	 | status | 请求加载远程服务器数据失败时的事件 |
 | onClickRow   | click-row.bs.table       | row, $element | 当用户点击某一行的时候触发，参数包括：<br/> row：点击行的数据， <br/> $element：tr 元素， <br/> field：点击列的 field 名称。 |
-| onDblClickRow | dbl-click-row.bs.table | row, $element | 当用户双击某一行的时候触发，参数包括：
-row：点击行的数据，
-$element：tr 元素，
-field：点击列的 field 名称。 |
-| onClickCell | click-cell.bs.table | field, value, row, $element | 当用户点击某一列的时候触发，参数包括：
-field：点击列的 field 名称，
-value：点击列的 value 值，
-row：点击列的整行数据，
-$element：td 元素。 |
-| onDblClickCell | dbl-click-cell.bs.table | field, value, row, $element | 当用户双击某一列的时候触发，参数包括：
-field：点击列的 field 名称，
-value：点击列的 value 值，
-row：点击列的整行数据，
-$element：td 元素。 |
-|  |  |  |  |
+| onDblClickRow | dbl-click-row.bs.table | row, $element | 当用户双击某一行的时候触发，参数包括：<br/>row：点击行的数据，<br/>field：点击列的 field 名称。 |
+| onClickCell | click-cell.bs.table | field, value, row, $element | 当用户点击某一列的时候触发，参数包括：<br/>field：点击列的 field 名称，<br/>value：点击列的 value 值，<br/>row：点击列的整行数据，<br/>$element：td 元素。 |
+| onDblClickCell | dbl-click-cell.bs.table | field, value, row, $element | 当用户双击某一列的时候触发，参数包括：<br/>field：点击列的 field 名称，<br/>value：点击列的 value 值，<br/>row：点击列的整行数据，<br/>$element：td 元素。 |
+
+关于事件，更详细文档请访问：
+[http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/#事件](http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/#事件)
 
 
+### 四、方法
 
-### 方法
 
 使用方法的语法：$('#table').bootstrapTable('method', parameter);。
+示例代码：
+```
+// 获取表格所有已经勾选的行数据，为一个对象数组
+var selects = $('#table').bootstrapTable('getSelections');
+```
 
 
-| 名称     | 参数     |  描述 |
+| 名称(method)     | 参数     |  描述 |
 | :------------- | :------------- | :------------- |
 | getOptions      | none      | 返回表格的 Options。 |
 | getSelections | none | 返回所选的行，当没有选择任何行的时候返回一个空数组。 |
@@ -238,28 +305,23 @@ $element：td 元素。 |
 | load | data | 加载数据到表格中，旧数据会被替换。 |
 | append | data | 添加数据到表格在现有数据之后。 |
 | prepend | data | 插入数据到表格在现有数据之前。 |
-| insertRow | params | 插入新行，参数包括：
-index: 要插入的行的 index。
-row: 行的数据，Object 对象。 |
-| refresh | params | Refresh the remote server data, you can set {silent: true} to refresh the data silently, and set {url: newUrl} to change the url. To supply query params specific to this request, set {query: {foo: 'bar'}} |
-| showLoading | none | Show loading status. |
-|hideLoading  | none | Hide loading status. |
-| check | index | Check a row, the row index start with 0. |
-| uncheck | index | Uncheck a row, the row index start with 0. |
-| destroy | none |  Destroy the bootstrap table. |
+| insertRow | params | 插入新行，参数包括：<br/>index: 要插入的行的 index。<br/>row: 行的数据，Object 对象。 |
+| refresh | params | 更新远程服务器上的数据，可以设置{silent: true}来默认刷新，也可以设置{url: newUrl}来改变获取数据的url接口，也支持设置请求的参数{query: {foo: 'bar'}}，这点在表单查询时很有用 |
+| showLoading | none | 显示数据加载状态 |
+|hideLoading  | none | 隐藏数据加载状态 |
+| check | index | 选择一行，参数为行号，index从0开始 |
+| uncheck | index | 取消选择一行，参数为行号，index从0开始 |
+| destroy | none | 销毁一个表格，直接把整个table删掉，需要重新开始渲染table |
 | selectPage | page | 跳到指定的页。 |
 | prevPage | none | 跳到上一页。 |
 | nextPage | none | 跳到下一页。  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
+
+更全文档请访问：[http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/#方法](http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/#方法)
 
 
 
 
 
-
---
 -
 -
 -
