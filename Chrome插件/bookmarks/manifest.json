@@ -1,0 +1,18 @@
+{   
+  "name": "管理书签",   
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "同步书签",   
+  "browser_action": {   
+    "default_icon": "icon.png" , 
+    "default_title": "我的书签", 
+    "default_popup": "background.html"
+  },
+  "permissions": [
+    "bookmarks"
+  ],
+  "background": {
+    //"page": "background.html",
+    "scripts": ["js/index.js"]
+  }
+} 
