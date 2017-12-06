@@ -1,0 +1,18 @@
+
+## js 字符串两边截取空白的 trim 的原型方法的实现
+
+String.prototype.trim = function () {
+	return this.replace(/(^\s*)|(\s*$)/g,'');
+};
+
+
+##
+
+
+1    alert(1&&2)的结果是2
+2    只要“&&”前面是false，无论“&&”后面是true还是false，结果都将返“&&”前面的值;
+3    只要“&&”前面是true，无论“&&”后面是true还是false，结果都将返“&&”后面的值;
+4
+5    alert(0||1)的结果是1
+6    只要“||”前面为false,不管“||”后面是true还是false，都返回“||”后面的值。
+7    只要“||”前面为true,不管“||”后面是true还是false，都返回“||”前面的值。
