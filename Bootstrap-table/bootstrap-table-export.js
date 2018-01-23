@@ -5,127 +5,77 @@
 
 (function ($) {
     'use strict';
-    var sprintf = $.fn.bootstrapTable.utils.sprintf;
-
-    var TYPE_NAME = {
-        json: 'JSON',
-        xml: 'XML',
-        png: 'PNG',
-        csv: 'CSV',
-        txt: 'TXT',
-        sql: 'SQL',
-        doc: 'MS-Word',
-        excel: 'MS-Excel',
-        xlsx: 'MS-Excel (OpenXML)',
-        powerpoint: 'MS-Powerpoint',
-        pdf: 'PDF'
-    };
-
     $.extend($.fn.bootstrapTable.defaults, {
-        showExport: false,
-        exportDataType: 'basic', // basic, all, selected
-        // 'json', 'xml', 'png', 'csv', 'txt', 'sql', 'doc', 'excel', 'powerpoint', 'pdf'
-        exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel'],
-        exportOptions: {}
-    });
-
-    $.extend($.fn.bootstrapTable.defaults.icons, {
-        export: 'glyphicon-export icon-share'
+        // 默认不显示
+        paginationShowPageGo: false
     });
 
     $.extend($.fn.bootstrapTable.locales, {
-        formatExport: function () {
-            return 'Export data';
+        pageGo: function () {
+            return 'Page Jump';
         }
     });
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initToolbar = BootstrapTable.prototype.initToolbar;
+        _initPagination = BootstrapTable.prototype.initPagination;
 
-    BootstrapTable.prototype.initToolbar = function () {
-        this.showToolbar = this.options.showExport;
-
-        _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
-
-        if (this.options.showExport) {
-            var that = this,
-                $btnGroup = this.$toolbar.find('>.btn-group'),
-                $export = $btnGroup.find('div.export');
-
-            if (!$export.length) {
-                $export = $([
-                    '<div class="export btn-group">',
-                        '<button class="btn' +
-                            sprintf(' btn-%s', this.options.buttonsClass) +
-                            sprintf(' btn-%s', this.options.iconSize) +
-                            ' dropdown-toggle" aria-label="export type" ' +
-                            'title="' + this.options.formatExport() + '" ' +
-                            'data-toggle="dropdown" type="button">',
-                            sprintf('<i class="%s %s"></i> ', this.options.iconsPrefix, this.options.icons.export),
-                            '<span class="caret"></span>',
-                        '</button>',
-                        '<ul class="dropdown-menu" role="menu">',
-                        '</ul>',
-                    '</div>'].join('')).appendTo($btnGroup);
-
-                var $menu = $export.find('.dropdown-menu'),
-                    exportTypes = this.options.exportTypes;
-
-                if (typeof this.options.exportTypes === 'string') {
-                    var types = this.options.exportTypes.slice(1, -1).replace(/ /g, '').split(',');
-
-                    exportTypes = [];
-                    $.each(types, function (i, value) {
-                        exportTypes.push(value.slice(1, -1));
-                    });
-                }
-                $.each(exportTypes, function (i, type) {
-                    if (TYPE_NAME.hasOwnProperty(type)) {
-                        $menu.append(['<li role="menuitem" data-type="' + type + '">',
-                                '<a href="javascript:void(0)">',
-                                    TYPE_NAME[type],
-                                '</a>',
-                            '</li>'].join(''));
-                    }
-                });
-
-                $menu.find('li').click(function () {
-                    var type = $(this).data('type'),
-                        doExport = function () {
-                            that.$el.tableExport($.extend({}, that.options.exportOptions, {
-                                type: type,
-                                escape: false
-                            }));
-                        };
-
-                    if (that.options.exportDataType === 'all' && that.options.pagination) {
-                        that.$el.one(that.options.sidePagination === 'server' ? 'post-body.bs.table' : 'page-change.bs.table', function () {
-                            doExport();
-                            that.togglePagination();
-                        });
-                        that.togglePagination();
-                    } else if (that.options.exportDataType === 'selected') {
-                        var data = that.getData(),
-                            selectedData = that.getAllSelections();
-
-                        // Quick fix #2220
-                        if (that.options.sidePagination === 'server') {
-                            data = {total: that.options.totalRows};
-                            data[that.options.dataField] = that.getData();
-
-                            selectedData = {total: that.options.totalRows};
-                            selectedData[that.options.dataField] = that.getAllSelections();
-                        }
-
-                        that.load(selectedData);
-                        doExport();
-                        that.load(data);
-                    } else {
-                        doExport();
-                    }
-                });
-            }
+    BootstrapTable.prototype.initPagination = function() {
+        _initPagination.apply(this, Array.prototype.slice.apply(arguments));
+        if(this.options.paginationShowPageGo){
+            this.initPaginationPageGo();
         }
+    };
+
+    BootstrapTable.prototype.initPaginationPageGo = function () {
+        if (!this.options.pagination) {
+            return;
+        }
+
+        var html = [],
+            $pagego, $ulPagination, $pageInput;
+
+        if (!this.options.onlyInfoPagination) {
+
+            var html = [];
+            html.push(
+                '<ul class="pagination-jump">',
+                '<li class=""><span>' + this.options.pageGo() + ':</span></li>',
+                '<li class=""><input type="text" class="page-input" value="' + this.options.pageNumber + '"   /></li>',
+                '<li class="page-go"><a class="jump-go" href="">GO</a></li>',
+                '</ul>');
+
+            $ulPagination = this.$pagination.find('ul.pagination');
+            $ulPagination.after(html.join(''));
+
+            $pagego = this.$pagination.find('.page-go');
+            $pageInput = this.$pagination.find('.page-input');
+
+            $pagego.off('click').on('click', $.proxy(this.onPageGo, this));
+            $pageInput.off('keyup').on('keyup', function(){
+                if(this.value.length==1){
+                    this.value=this.value.replace(/[^1-9]/g,'')
+                }else{
+                    this.value=this.value.replace(/\D/g,'')
+                }
+            });
+
+        }
+
+    };
+
+
+    BootstrapTable.prototype.onPageGo = function (event) {
+        // var $this = $(event.currentTarget);
+        var $toPage=this.$pagination.find('.page-input');
+
+        if (this.options.pageNumber === +$toPage.val() || +$toPage.val() <= 0) {
+            return false;
+        }
+        this.options.pageNumber = +$toPage.val();
+
+        this.updatePagination(event);
+        // $this.prev().find('input').val(this.options.pageNumber);
+        return false;
     };
 })(jQuery);
