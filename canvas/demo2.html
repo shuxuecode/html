@@ -1,0 +1,44 @@
+<html>
+
+<head>
+    <title>测试</title>
+</head>
+
+<body>
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, 50, 50);
+
+
+        function test(){
+
+            ctx.clearRect(0, 0, 150, 150);
+
+            window.requestAnimationFrame(test)
+
+
+            // console.log(1)
+
+            var w = parseInt(Math.random() * 100)
+            var h = parseInt(Math.random() * 100)
+
+
+            ctx.moveTo(0, 0);
+            // ctx.lineTo(200, 100);
+            ctx.lineTo(w, h);
+            ctx.stroke();
+
+
+
+        }
+
+        test();
+
+    </script>
+</body>
+
+</html>
