@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta charset="utf-8">
+  <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+
+  <script src="three.min.js"></script>
+  <script src="photo-sphere-viewer.min.js"></script>
+ </head>
+
+ <body>
+	
+	<div id="container"></div>
+
+
+
+	<script>
+		var div = document.getElementById('container');
+	
+		var PSV = new PhotoSphereViewer({
+			// Path to the panorama
+			panorama: 'sun.jpg',
+			// Container
+			container: div,
+
+			// Deactivate the animation
+			time_anim: false,
+
+			// Display the navigation bar
+			navbar: true,
+
+			// Resize the panorama
+			size: {
+				width: '100%',
+				height: '500px'
+			}
+		});   
+	
+	</script>
+  
+ </body>
+</html>

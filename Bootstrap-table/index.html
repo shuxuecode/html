@@ -14,6 +14,8 @@
 
   <table id="table"></table>
 
+	
+	<button onclick="test()">123</button>
 
 
   <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
@@ -86,6 +88,29 @@
 
 
     });
+
+
+
+	function test(){
+		var json = {
+    "total": 2, 
+    "rows": [
+        {
+            "id": 1, 
+            "name": "测试姓名1", 
+            "age": 0
+        }, 
+        {
+            "id": 2, 
+            "name": "测试姓名2", 
+            "age": 1
+        }
+    ]
+};
+	
+		$("#table").bootstrapTable("load", json);
+	
+	}
   </script>
 </body>
 
