@@ -35,3 +35,4 @@ if (document.addEventListener){
   document.attachEvent("onkeydown",keyDownEvent);
 }
 
+alert("OK");
