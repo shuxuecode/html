@@ -17,7 +17,7 @@ function showLink(){
 					color = color.concat(Math.round(Math.random() * 9));
 				}
 
-				aaa.setAttribute("style", 'font-size:20px; border: 1px solid; padding: 10px; background-color: ' + color + ';');
+				aaa.setAttribute("style", 'display: inline-block; font-size:20px; border: 1px solid; padding: 10px; margin: 8px; background-color: ' + color + ';');
 				
 				list[i].parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(aaa);
 
