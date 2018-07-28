@@ -11,7 +11,13 @@ function showLink(){
 				aaa.setAttribute("href", list[i].currentSrc);
 				aaa.setAttribute("target", '_blank');
 				aaa.setAttribute("download", '');
-				aaa.setAttribute("style", 'font-size:20px; border: 1px solid;');
+				
+				var color = '#';
+				for(var n=0; n<6; n++){
+					color = color.concat(Math.round(Math.random() * 9));
+				}
+
+				aaa.setAttribute("style", 'font-size:20px; border: 1px solid; padding: 10px; background-color: ' + color + ';');
 				
 				list[i].parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(aaa);
 
