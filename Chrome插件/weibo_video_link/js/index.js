@@ -39,23 +39,37 @@ function showGifLink(){
 				var index = str.indexOf('picSrc=');
 				if(index > 0){
 					var url = 'https:' + unescape(str.substring(index+7));
-					var aaa = document.createElement('p');
-					aaa.innerHTML = url;
+					var textarea = document.createElement('textarea');
+					textarea.value = url;
+
+					textarea.setAttribute("style", "width: 100%;");
 					
-					var color = '#';
-					for(var n=0; n<6; n++){
-						color = color.concat(Math.round(Math.random() * 9));
+					var btn = document.createElement("button");
+					btn.innerHTML = 'copy';
+					btn.onclick=function(){
+						// console.log(this)
+						var tt = this.previousSibling;
+						// console.log(tt)
+						tt.select(); // 选中文本
+						document.execCommand("copy"); // 执行浏览器复制命令
+						this.innerHTML = '复制成功';
 					}
+					
 
 					// aaa.setAttribute("style", 'display: inline-block; font-size:16px; border: 1px solid; padding: 10px; margin: 8px; background-color: ' + color + ';');
 				
-					parentNode.appendChild(aaa);
+					parentNode.appendChild(textarea);
+					parentNode.appendChild(btn);
 				}
 			
 			}
 		}
 	}
 }	
+
+
+
+
 
 function keyDownEvent(event){
 	// console.log(event)
