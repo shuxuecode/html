@@ -34,32 +34,42 @@ function showGifLink(){
 	if(list && list.length > 0){
 		for(var i=0; i<list.length; i++){
 			var parentNode = list[i].parentNode.parentNode;
-			if(parentNode){
+			var bool = parentNode.hasAttribute('get-gif-img-url');
+			if(parentNode && !bool){
 				var str = parentNode.getAttribute('action-data');
 				var index = str.indexOf('picSrc=');
+				var endIndex = str.indexOf('&thumb_picSrc=')
 				if(index > 0){
-					var url = 'https:' + unescape(str.substring(index+7));
-					var textarea = document.createElement('textarea');
-					textarea.value = url;
-
-					textarea.setAttribute("style", "width: 100%;");
 					
-					var btn = document.createElement("button");
-					btn.innerHTML = 'copy';
-					btn.onclick=function(){
-						// console.log(this)
-						var tt = this.previousSibling;
-						// console.log(tt)
-						tt.select(); // 选中文本
-						document.execCommand("copy"); // 执行浏览器复制命令
-						this.innerHTML = '复制成功';
+					var imgUrl = endIndex > 0 ? unescape(str.substring(index+7, endIndex)) : unescape(str.substring(index+7));
+					var imgArray = imgUrl.split(',');
+
+					for(var m=0, len=imgArray.length; m<len; m++){
+						var url = 'https:' + imgArray[m];
+						var textarea = document.createElement('textarea');
+						textarea.value = url;
+
+						textarea.setAttribute("style", "width: 100%;");
+						
+						var btn = document.createElement("button");
+						btn.innerHTML = 'copy';
+						btn.onclick=function(){
+							// console.log(this)
+							var tt = this.previousSibling;
+							// console.log(tt)
+							tt.select(); // 选中文本
+							document.execCommand("copy"); // 执行浏览器复制命令
+							this.innerHTML = '复制成功';
+						}
+
+						// aaa.setAttribute("style", 'display: inline-block; font-size:16px; border: 1px solid; padding: 10px; margin: 8px; background-color: ' + color + ';');
+					
+						parentNode.appendChild("<p>"+(m+1)+"</p>" + textarea);
+						parentNode.appendChild(btn);
 					}
+					// 避免多个图片产生重复的信息
+					parentNode.setAttribute('get-gif-img-url', '0');
 					
-
-					// aaa.setAttribute("style", 'display: inline-block; font-size:16px; border: 1px solid; padding: 10px; margin: 8px; background-color: ' + color + ';');
-				
-					parentNode.appendChild(textarea);
-					parentNode.appendChild(btn);
 				}
 			
 			}
