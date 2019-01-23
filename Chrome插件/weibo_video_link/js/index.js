@@ -44,6 +44,8 @@ function showGifLink(){
 					var imgUrl = endIndex > 0 ? unescape(str.substring(index+7, endIndex)) : unescape(str.substring(index+7));
 					var imgArray = imgUrl.split(',');
 
+					
+
 					for(var m=0, len=imgArray.length; m<len; m++){
 						var url = 'https:' + imgArray[m];
 						var textarea = document.createElement('textarea');
@@ -64,7 +66,11 @@ function showGifLink(){
 
 						// aaa.setAttribute("style", 'display: inline-block; font-size:16px; border: 1px solid; padding: 10px; margin: 8px; background-color: ' + color + ';');
 					
-						parentNode.appendChild("<p>"+(m+1)+"</p>" + textarea);
+						var p = document.createElement('p');
+						p.innerHTML = m+1;
+
+						parentNode.appendChild(p);
+						parentNode.appendChild(textarea);
 						parentNode.appendChild(btn);
 					}
 					// 避免多个图片产生重复的信息
@@ -98,4 +104,5 @@ if (document.addEventListener){
   document.attachEvent("onkeydown",keyDownEvent);
 }
 
-alert("OK");
+//alert("OK");
+document.getElementsByClassName('WB_miniblog')[0].style.background = '#ccc'
