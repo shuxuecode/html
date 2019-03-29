@@ -1,0 +1,690 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+    <title>天天填字012</title>
+    <meta name="Keywords" content="天天填字网 填字游戏 填字制作 在线填字游戏" />
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <style type="text/css"><!--
+
+    body, h1, h2, h3, h4, h5, h6
+    {
+        font-family: Segoe UI, Franklin Gothic Medium, Arial, sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6
+    {
+        color: #5d6a86;
+    }
+
+    body
+    {
+        cursor: default;
+        font-size: small;
+    }
+
+    .ecw-answerbox
+    {
+        color: black;
+        background-color: #F0F0F0;
+        border-color: #808080;
+        border-style: solid;
+        border-width: 1px;
+        display: block;
+        padding: .75em;
+        width: 240pt;
+    }
+
+    .ecw-box
+    {
+        border-style: solid;
+        border-width: 1pt;
+        cursor: pointer;
+        font-size: .24in;
+        font-weight: bold;
+        height: .35in;
+        overflow: hidden;
+        text-align: center;
+        width: .35in;
+    }
+
+    .ecw-boxcheated_sel
+    {
+        background-color: #FFF1D7;
+        border-color: #C00000;
+        color: #2080D0;
+    }
+
+    .ecw-boxcheated_unsel
+    {
+        background-color: #ffffff;
+        border-color: #606060;
+        color: #2080D0;
+    }
+
+    .ecw-boxerror_sel
+    {
+        background-color: #FFF1D7;
+        border-color: #C00000;
+        color: #BF0000;
+    }
+
+    .ecw-boxerror_unsel
+    {
+        background-color: #FFF0F0;
+        border-color: #606060;
+        color: #BF0000;
+    }
+
+    .ecw-boxnormal_sel
+    {
+        background-color: #FFF1D7;
+        border-color: #C00000;
+        color: #000000;
+    }
+
+    .ecw-boxnormal_unsel
+    {
+        background-color: #ffffff;
+        border-color: #606060;
+        color: #000000;
+    }
+
+    .ecw-button
+    {
+        width: 64pt;
+    }
+
+    /*.ecw-cluebox*/
+       /*{*/
+           /*border-bottom-width: 1px;*/
+           /*border-color: #c0c0c0;*/
+           /*border-left-width: 0px;*/
+           /*border-right-width: 0px;*/
+           /*border-style: solid;*/
+           /*border-top-width: 1px;*/
+           /*margin-top: 1em;*/
+           /*padding-bottom: .5em;*/
+           /*padding-left: 0pt;*/
+           /*padding-right: 0pt;*/
+           /*padding-top: .5em;*/
+       /*}*/
+
+    .ecw-crosswordarea
+    {
+        background-color: #8E8E8E;
+        border-color: #808080;
+        border-style: solid;
+        border-width: 2px;
+        padding: .5em;
+        font-family: Segoe UI, Verdana, Arial, sans-serif;
+        font-size: small;
+    }
+
+    .ecw-copyright
+    {
+        margin-bottom: 1em;
+        font-size: x-small;
+        font-family: Segoe UI, Franklin Gothic Medium, Arial, sans-serif;
+    }
+
+    .ecw-input
+    {
+        font-family: Segoe UI, Franklin Gothic Medium, Arial, sans-serif;
+    }
+
+    .ecw-wordlabel
+    {
+        text-transform: uppercase;
+        margin: 0;
+    }
+
+    .ecw-wordinfo
+    {
+        font-size: 8pt;
+        color: #808080;
+    }
+
+    .ecw-worderror
+    {
+        color: #c00000;
+        font-weight: bold;
+        display: none;
+        margin-top: 1em;
+    }
+
+    --></style>
+
+</head><body>
+
+<h1>天天填字012</h1>
+<h3 style="margin-top: -1em;"></h3>
+
+<div id="waitmessage" class="ecw-answerbox">
+    本填字游戏，需要您的浏览器支持JavaScript。
+</div>
+
+<table cellpadding="0" cellspacing="0" border="0"><tr>
+
+    <td class="ecw-crosswordarea"><table id="crossword" cellpadding="0" cellspacing="0" style="display: none; border-collapse: collapse;">
+
+        <script type="text/javascript"><!--
+
+        var map = new Map();
+
+
+        CrosswordWidth = 10;
+        CrosswordHeight = 10;
+        Words = 24;
+        WordLength = new Array(2, 2, 2, 2, 4, 3, 4, 2, 4, 3, 7, 5, 3, 4, 5, 3, 3, 6, 7, 2, 3, 4, 4, 2);
+        Word = new Array("杜甫", "皇甫", "女红", "道家", "赵氏孤儿", "马晓旭", "堂吉诃德", "里昂", "得寸进尺", "丘吉尔", "汉皇重色思倾国", "斯坦福大学", "火山灰", "杜甫草堂", "皇家马德里", "女儿国", "赵旭日", "吉尔吉斯斯坦", "一寸相思一寸灰", "戒尺", "三重门", "汉武大帝", "国际米兰", "斯文");
+        Clue = new Array("最近很忙的一位诗人",
+            "《百家姓》中的一个复姓。",
+            "旧时指女子所作的纺织、缝纫等工作。",
+            "我国古代的一个学派，代表人物有老子、庄子等。",
+            "元朝的一部杂剧，作者纪君祥。",
+            "女足球星，中国女足核心人物",
+            "塞万提斯笔下的著名人物，他仿效骑士的生活，把风车看作巨人, 把羊群当做敌军。",
+            "法国一座大城市，世界高级丝织品的最大产地之一。",
+            "比喻贪心不足，有了小的，又要大的。",
+            "二战时期的英国首相，与斯大林、罗斯福并立的“三巨头”之一",
+            "白居易《长恨歌》的首句，下句为“御宇多年求不得”。",
+            "美国一所知名私立高等学府，位于加利福尼亚州。",
+            "粒径很小的火山固态喷发物。因细小，喷发时可送达数十千米的大气层中，并可长期悬浮在空中。",
+            "“横向1”的故居。",
+            "西班牙著名足球俱乐部",
+            "《西游记》中的一个国家，该国境内没有男子。",
+            "男足球星，效力于广州恒大俱乐部",
+            "中亚内陆国，东邻中国，首都比什凯克。",
+            "李商隐《无题》中“春心莫共花争发”的下句。",
+            "旧时教师对学生施行体罚时所用的木板",
+            "作家韩寒的一部代表作",
+            "陈宝国、归亚蕾、陶红等主演的大型历史连续剧。",
+            "意甲一支实力强劲的球队，被称为“蓝黑军团”。",
+            "指文化或文人。");
+        AnswerHash = new Array(80753, 46429, 61909, -27257, -49836, -23432, 60273, -26545, 41003, 2908, 49027, 42254, 9723, 44672, -58002, 77969, -15470, 91592, 69787, 85653, -24917, 16765, 92043, 72435);
+        WordX = new Array(0, 3, 8, 2, 5, 3, 0, 3, 6, 0, 3, 0, 5, 0, 3, 8, 5, 1, 7, 9, 5, 3, 9, 0);
+        WordY = new Array(0, 0, 0, 1, 1, 2, 3, 4, 4, 5, 6, 8, 9, 0, 0, 0, 1, 3, 3, 3, 5, 6, 6, 8);
+        LastHorizontalWord = 12;
+        OnlyCheckOnce = false;
+        //-->
+        </script>
+
+        <script type="text/javascript"><!--
+
+
+        function strMapToObj(strMap){
+            let obj= Object.create(null);
+            for (let[k,v] of strMap) {
+                obj[k] = v;
+            }
+            return obj;
+        }
+
+
+        var xdirct = true;
+        for(var z = 0; z < Word.length; z++)
+        {
+            var obj = new Object();
+            obj.description = Clue[z];
+            obj.posArray = [];
+
+            if(WordX[z] == 0 && WordY[z]==0 && z!=0)
+            {
+                xdirct = false;
+            }
+            for(var m = 0; m < Word[z].length; m++)
+            {
+                if(xdirct == true)
+                {
+                    obj.posArray.push(WordY[z] + "," + (WordX[z]+m));
+                }
+                else
+                {
+                    obj.posArray.push((WordY[z]+m) + "," + WordX[z]);
+                }
+
+            }
+            map.set(Word[z],obj);
+        }
+
+
+        var mapjson = JSON.stringify(strMapToObj(map));
+        alert(mapjson);
+
+        var BadChars = "`~!@^*()_={[}]\|:;\"',<.>/?";
+
+        var TableAcrossWord, TableDownWord;
+        var CurrentWord, PrevWordHorizontal, x, y, i, j;
+        var CrosswordFinished, Initialized;
+
+        // Check the user's browser and then initialize the puzzle.
+        if (document.getElementById("waitmessage") != null)
+        {
+            document.getElementById("waitmessage").innerHTML = "填字游戏正在载入...";
+
+            // Current game variables
+            CurrentWord = -1;
+            PrevWordHorizontal = false;
+
+            // Create the cell-to-word arrays.
+            TableAcrossWord = new Array(CrosswordWidth);
+            for (var x = 0; x < CrosswordWidth; x++) TableAcrossWord[x] = new Array(CrosswordHeight);
+            TableDownWord = new Array(CrosswordWidth);
+            for (var x = 0; x < CrosswordWidth; x++) TableDownWord[x] = new Array(CrosswordHeight);
+            for (var y = 0; y < CrosswordHeight; y++)
+                for (var x = 0; x < CrosswordWidth; x++)
+                {
+                    TableAcrossWord[x][y] = -1;
+                    TableDownWord[x][y] = -1;
+                }
+
+            // First, add the horizontal words to the puzzle.
+            for (var i = 0; i <= LastHorizontalWord; i++)
+            {
+                x = WordX[i];
+                y = WordY[i];
+                for (var j = 0; j < WordLength[i]; j++)
+                {
+                    TableAcrossWord[x + j][y] = i;
+                }
+            }
+
+            // Second, add the vertical words to the puzzle.
+            for (var i = LastHorizontalWord + 1; i < Words; i++)
+            {
+                x = WordX[i];
+                y = WordY[i];
+                for (var j = 0; j < WordLength[i]; j++)
+                {
+                    TableDownWord[x][y + j] = i;
+                }
+            }
+
+            // Now, insert the row HTML into the table.
+            for (var y = 0; y < CrosswordHeight; y++)
+            {
+                document.writeln("<tr>");
+                for (var x = 0; x < CrosswordWidth; x++)
+                {
+                    if (TableAcrossWord[x][y] >= 0 || TableDownWord[x][y] >= 0)
+                        document.write("<td id=\"c" + PadNumber(x) + PadNumber(y) + "\" class=\"ecw-box ecw-boxnormal_unsel\" onclick=\"SelectThisWord(event);\">&nbsp;</td>");
+                    else
+                        document.write("<td></td>");
+                }
+                document.writeln("</tr>");
+            }
+
+            // Finally, show the crossword and hide the wait message.
+            Initialized = true;
+            document.getElementById("waitmessage").style.display = "none";
+            document.getElementById("crossword").style.display = "block";
+        }
+
+        // ----------
+        // Event handlers
+
+        // Raised when a key is pressed in the word entry box.
+        function WordEntryKeyPress(event)
+        {
+            if (CrosswordFinished) return;
+            // Treat an Enter keypress as an OK click.
+            if (CurrentWord >= 0 && event.keyCode == 13) OKClick();
+        }
+
+        // ----------
+        // Helper functions
+
+        // Called when we're ready to start the crossword.
+        function BeginCrossword()
+        {
+            if (Initialized)
+            {
+                document.getElementById("welcomemessage").style.display = "";
+                document.getElementById("checkbutton").style.display = "";
+            }
+        }
+
+        // Returns true if the string passed in contains any characters prone to evil.
+        function ContainsBadChars(theirWord)
+        {
+            for (var i = 0; i < theirWord.length; i++)
+                if (BadChars.indexOf(theirWord.charAt(i)) >= 0) return true;
+            return false;
+        }
+
+        // Pads a number out to three characters.
+        function PadNumber(number)
+        {
+            if (number < 10)
+                return "00" + number;
+            else if (number < 100)
+                return "0" + number;
+            else
+                return "" +  number;
+        }
+
+        // Returns the table cell at a particular pair of coordinates.
+        function CellAt(x, y)
+        {
+            return document.getElementById("c" + PadNumber(x) + PadNumber(y));
+        }
+
+        // Deselects the current word, if there's a word selected.  DOES not change the value of CurrentWord.
+        function DeselectCurrentWord()
+        {
+            if (CurrentWord < 0) return;
+            var x, y, i;
+
+            document.getElementById("answerbox").style.display = "none";
+            ChangeCurrentWordSelectedStyle(false);
+            CurrentWord = -1;
+
+        }
+
+        // Changes the style of the cells in the current word.
+        function ChangeWordStyle(WordNumber, NewStyle)
+        {
+            if (WordNumber< 0) return;
+            var x = WordX[WordNumber];
+            var y = WordY[WordNumber];
+
+            if (WordNumber<= LastHorizontalWord)
+                for (i = 0; i < WordLength[WordNumber]; i++)
+                    CellAt(x + i, y).className = NewStyle;
+            else
+                for (i = 0; i < WordLength[WordNumber]; i++)
+                    CellAt(x, y + i).className = NewStyle;
+        }
+
+        // Changes the style of the cells in the current word between the selected/unselected form.
+        function ChangeCurrentWordSelectedStyle(IsSelected)
+        {
+            if (CurrentWord < 0) return;
+            var x = WordX[CurrentWord];
+            var y = WordY[CurrentWord];
+
+            if (CurrentWord <= LastHorizontalWord)
+                for (i = 0; i < WordLength[CurrentWord]; i++)
+                    CellAt(x + i, y).className = CellAt(x + i, y).className.replace(IsSelected ? "_unsel" : "_sel", IsSelected ? "_sel" : "_unsel");
+            else
+                for (i = 0; i < WordLength[CurrentWord]; i++)
+                    CellAt(x, y + i).className = CellAt(x, y + i).className.replace(IsSelected ? "_unsel" : "_sel", IsSelected ? "_sel" : "_unsel");
+        }
+
+        // Selects the new word by parsing the name of the TD element referenced by the
+        // event object, and then applying styles as necessary.
+        function SelectThisWord(event)
+        {
+            if (CrosswordFinished) return;
+            var x, y, i, TheirWord, TableCell;
+
+            // Deselect the previous word if one was selected.
+            document.getElementById("welcomemessage").style.display = "none";
+            if (CurrentWord >= 0) OKClick();
+            DeselectCurrentWord();
+
+            // Determine the coordinates of the cell they clicked, and then the word that
+            // they clicked.
+            var target = (event.srcElement ? event.srcElement: event.target);
+            x = parseInt(target.id.substring(1, 4), 10);
+            y = parseInt(target.id.substring(4, 7), 10);
+
+            // If they clicked an intersection, choose the type of word that was NOT selected last time.
+            if (TableAcrossWord[x][y] >= 0 && TableDownWord[x][y] >= 0)
+                CurrentWord = PrevWordHorizontal ? TableDownWord[x][y] : TableAcrossWord[x][y];
+            else if (TableAcrossWord[x][y] >= 0)
+                CurrentWord = TableAcrossWord[x][y];
+            else if (TableDownWord[x][y] >= 0)
+                CurrentWord = TableDownWord[x][y];
+
+            PrevWordHorizontal = (CurrentWord <= LastHorizontalWord);
+
+            // Now, change the style of the cells in this word.
+            ChangeCurrentWordSelectedStyle(true);
+
+            // Then, prepare the answer box.
+            x = WordX[CurrentWord];
+            y = WordY[CurrentWord];
+            TheirWord = "";
+            var TheirWordLength = 0;
+            for (i = 0; i < WordLength[CurrentWord]; i++)
+            {
+                // Find the appropriate table cell.
+                if (CurrentWord <= LastHorizontalWord)
+                    TableCell = CellAt(x + i, y);
+                else
+                    TableCell = CellAt(x, y + i);
+                // Add its contents to the word we're building.
+                if (TableCell.innerHTML != null && TableCell.innerHTML.length > 0 && TableCell.innerHTML != " " && TableCell.innerHTML.toLowerCase() != "&nbsp;")
+                {
+                    TheirWord += TableCell.innerHTML.toUpperCase();
+                    TheirWordLength++;
+                }
+                else
+                {
+                    TheirWord += "&bull;";
+                }
+            }
+
+            document.getElementById("wordlabel").innerHTML = TheirWord;
+            document.getElementById("wordinfo").innerHTML = ((CurrentWord <= LastHorizontalWord) ? "横向, " : "纵向, ") + WordLength[CurrentWord] + " 个字.";
+            document.getElementById("wordclue").innerHTML = Clue[CurrentWord];
+            document.getElementById("worderror").style.display = "none";
+            document.getElementById("cheatbutton").style.display = (Word.length == 0) ? "none" : "";
+            if (TheirWordLength == WordLength[CurrentWord])
+                document.getElementById("wordentry").value = TheirWord;
+            else
+                document.getElementById("wordentry").value = "";
+
+            // Finally, show the answer box.
+            document.getElementById("answerbox").style.display = "block";
+            try
+            {
+                document.getElementById("wordentry").focus();
+                document.getElementById("wordentry").select();
+            }
+            catch (e)
+            {
+            }
+
+        }
+
+        // Called when the user clicks the OK link.
+        function OKClick()
+        {
+            var TheirWord, x, y, i, TableCell;
+            if (CrosswordFinished) return;
+            if (document.getElementById("okbutton").disabled) return;
+
+            // First, validate the entry.
+            TheirWord = document.getElementById("wordentry").value.toUpperCase();
+            if (TheirWord.length == 0)
+            {
+                DeselectCurrentWord();
+                return;
+            }
+            if (ContainsBadChars(TheirWord))
+            {
+                document.getElementById("worderror").innerHTML = "您输入的词语中包含非法字符，请重新输入。";
+                document.getElementById("worderror").style.display = "block";
+                return;
+            }
+            if (TheirWord.length < WordLength[CurrentWord])
+            {
+                document.getElementById("worderror").innerHTML  = "您输入的字太少了，这个词应该有 " + WordLength[CurrentWord] + " 个字。";
+                document.getElementById("worderror").style.display = "block";
+                return;
+            }
+            if (TheirWord.length > WordLength[CurrentWord])
+            {
+                document.getElementById("worderror").innerHTML = "您输入的字太多了，这个词只有 " + WordLength[CurrentWord] + " 个字。";
+                document.getElementById("worderror").style.display = "block";
+                return;
+            }
+
+            // If we made it this far, they typed an acceptable word, so add these letters to the puzzle and hide the entry box.
+            x = WordX[CurrentWord];
+            y = WordY[CurrentWord];
+            for (i = 0; i < TheirWord.length; i++)
+            {
+                TableCell = CellAt(x + (CurrentWord <= LastHorizontalWord ? i : 0), y + (CurrentWord > LastHorizontalWord ? i : 0));
+                TableCell.innerHTML = TheirWord.substring(i, i + 1);
+            }
+            DeselectCurrentWord();
+        }
+
+        // Called when the "check puzzle" link is clicked.
+        function CheckClick()
+        {
+            var i, j, x, y, UserEntry, ErrorsFound = 0, EmptyFound = 0, TableCell;
+            if (CrosswordFinished) return;
+            DeselectCurrentWord();
+
+            for (y = 0; y < CrosswordHeight; y++)
+                for (x = 0; x < CrosswordWidth; x++)
+                    if (TableAcrossWord[x][y] >= 0 || TableDownWord[x][y] >= 0)
+                    {
+                        TableCell = CellAt(x, y);
+                        if (TableCell.className == "ecw-box ecw-boxerror_unsel") TableCell.className = "ecw-box ecw-boxnormal_unsel";
+                    }
+
+            for (i = 0; i < Words; i++)
+            {
+                // Get the user's entry for this word.
+                UserEntry = "";
+                for (j = 0; j < WordLength[i]; j++)
+                {
+                    if (i <= LastHorizontalWord)
+                        TableCell = CellAt(WordX[i] + j, WordY[i]);
+                    else
+                        TableCell = CellAt(WordX[i], WordY[i] + j);
+                    if (TableCell.innerHTML.length > 0 && TableCell.innerHTML.toLowerCase() != "&nbsp;")
+                    {
+                        UserEntry += TableCell.innerHTML.toUpperCase();
+                    }
+                    else
+                    {
+                        UserEntry = "";
+                        EmptyFound++;
+                        break;
+                    }
+                }
+                // If this word doesn't match, it's an error.
+                if (HashWord(UserEntry) != AnswerHash[i] && UserEntry.length > 0)
+                {
+                    ErrorsFound++;
+                    ChangeWordStyle(i, "ecw-box ecw-boxerror_unsel");
+                }
+            }
+
+            // If they can only check once, disable things prematurely.
+            if ( OnlyCheckOnce )
+            {
+                CrosswordFinished = true;
+                document.getElementById("checkbutton").style.display = "none";
+            }
+
+            // If errors were found, just exit now.
+            if (ErrorsFound > 0 && EmptyFound > 0)
+                document.getElementById("welcomemessage").innerHTML = ErrorsFound + (ErrorsFound > 1 ? " errors" : " error") + " and " + EmptyFound + (EmptyFound > 1 ? " incomplete words were" : " incomplete word was") + " found.";
+            else if (ErrorsFound > 0)
+                document.getElementById("welcomemessage").innerHTML = ErrorsFound + (ErrorsFound > 1 ? " errors were" : " error was") + " found.";
+            else if (EmptyFound > 0)
+                document.getElementById("welcomemessage").innerHTML = "No errors were found, but " + EmptyFound + (EmptyFound > 1 ? " incomplete words were" : " incomplete word was") + " found.";
+
+            if (ErrorsFound + EmptyFound > 0)
+            {
+                document.getElementById("welcomemessage").style.display = "";
+                return;
+            }
+
+            // They finished the puzzle!
+            CrosswordFinished = true;
+            document.getElementById("checkbutton").style.display = "none";
+            document.getElementById("congratulations").style.display = "block";
+            document.getElementById("welcomemessage").style.display = "none";
+        }
+
+        // Called when the "cheat" link is clicked.
+        function CheatClick()
+        {
+            if (CrosswordFinished) return;
+            var OldWord = CurrentWord;
+            document.getElementById("wordentry").value = Word[CurrentWord];
+            OKClick();
+            ChangeWordStyle(OldWord, "ecw-box ecw-boxcheated_unsel");
+        }
+
+        // Returns a one-way hash for a word.
+        function HashWord(Word)
+        {
+            var x = (Word.charCodeAt(0) * 719) % 1138;
+            var Hash = 837;
+            var i;
+            for (i = 1; i <= Word.length; i++)
+                Hash = (Hash * i + 5 + (Word.charCodeAt(i - 1) - 64) * x) % 98503;
+            return Hash;
+        }
+
+        //-->
+        </script>
+
+    </table></td>
+
+    <td valign="top" style="padding-left: 1em;">
+        <form action="http://www.google.com/cse" id="cse-search-box" target="_blank">
+            <div>
+                <input type="hidden" name="cx" value="partner-pub-3335021892863532:fdww32yut17" />
+                <input type="hidden" name="ie" value="GB2312" />
+                <input type="text" name="q" size="40" />
+                <input type="submit" name="sa" value="&#x641c;&#x7d22;" />
+            </div>
+        </form>
+
+
+        <div id="welcomemessage" class="ecw-answerbox" style="display:none;">
+            <span>为确保最佳显示效果，请保持本页面最大化。</span><br>
+            <p style="color: #ff0000;padding: 12px 0px 2px 0px; margin: 0px; border-bottom: 1px solid #ccc;"><b>说明：</b></p>
+            <span><ol><li>点击一个白色格子开始填字。</li>
+<li>根据提示，将答案填写在文本框中，然后按<b>回车键</b>或者点击<b>确定</b>按钮。</li>
+<li>重复以上两步，完成填字游戏。</li>
+<li>点击<b>答案</b>按钮可查看当前词条的答案。</li>
+</ol><br></span>
+
+        </div>
+
+        <div id="answerbox" class="ecw-answerbox" style="display:none;">
+            <h3 id="wordlabel" class="ecw-wordlabel"> &nbsp;</h3>
+            <div id="wordinfo" class="ecw-wordinfo"> </div>
+            <div id="wordclue" class="ecw-cluebox"> </div>
+            <div style="margin-top: 1em;">
+                <input class="ecw-input" id="wordentry" type="text" size="24" style="font-weight: bold; text-transform:uppercase;" onkeypress="WordEntryKeyPress(event)" onchange="WordEntryKeyPress(event)" autocomplete="off" />
+            </div>
+            <div id="worderror" class="ecw-worderror"></div>
+
+            <table border="0" cellspacing="0" cellpadding="0" width="100%" style="margin-top:1em;"><tbody><tr><td>
+                <button id="cheatbutton" type="button" class="ecw-input ecw-button" onclick="CheatClick();">答案</button>
+                <button id="checkbutton" type="button" class="ecw-input ecw-button" onclick="CheckClick();">check</button>
+            </td><td align="right">
+                <button id="okbutton" type="button" class="ecw-input ecw-button" onclick="OKClick();" style="font-weight: bold;">确定</button> &nbsp;
+                <button id="cancelbutton" type="button" class="ecw-input ecw-button" onclick="DeselectCurrentWord();">取消</button>
+            </td></tr></tbody></table>
+
+        </div>
+
+        <div id="congratulations" class="ecw-answerbox" style="display:none;">
+            <h3>恭喜你！答对了！</h3>
+            <p>更多填字游戏，请访问<a href="http://www.tzgame.net" style="color: black; text-decoration:none;">天天填字网。</a></p>
+        </div>
+
+    </td></tr></table>
+<div><p><b>版权所有，严禁转载！更多在线填字请访问<a href="http://www.tzgame.net/" target="_blank">天天填字网</a>！</b></p></div>
+
+<script language="JavaScript" type="text/javascript"><!--
+BeginCrossword();
+//-->
+</script>
+
+<br>
+
+
+</body></html>
