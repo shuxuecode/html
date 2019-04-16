@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>案例2：铺砖</title>
+</head>
+
+<body>
+  <canvas width="500" height="500" id="brick"></canvas>
+  <script type="text/javascript">
+
+
+    (function () {
+      var canvas = document.getElementById('brick')
+      if (canvas == null || !canvas.getContext)
+        return false;
+      var context = canvas.getContext("2d");
+
+      console.log('canvas.width   ' + canvas.width);
+      console.log('canvas.height   ' + canvas.height);
+
+      ctx = context;
+
+      ctx.fillStyle = "red";
+      ctx.fillRect(0, 0, 100, 100);
+
+
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "green";
+      ctx.strokeRect(200, 200, 50, 50);
+
+      ctx.strokeRect(200, 250, 50, 50);
+      ctx.strokeRect(250, 200, 50, 50);
+
+      ctx.strokeRect(250, 250, 50, 50);
+
+      // 绘制 线条
+      /**
+       * 
+       * context.moveTo(x,y) 
+      　　context.lineTo(x,y) 
+       */
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "yellow";
+
+      ctx.moveTo(50, 200);
+      ctx.lineTo(100, 200);
+      ctx.lineTo(100, 250);
+      ctx.lineTo(100, 300);
+      ctx.lineTo(150, 300);
+      ctx.lineTo(150, 350);
+
+      ctx.lineTo(100, 350);
+      ctx.lineTo(100, 300);
+      ctx.lineTo(50, 300);
+
+      ctx.lineTo(50, 250);
+      ctx.lineTo(50, 200);
+
+      ctx.moveTo(50, 250);
+      ctx.lineTo(100, 250);
+
+      ctx.stroke();
+
+      // 
+      ctx.font = "20px sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("你好，世界", 200, 80);
+
+
+
+
+      // ctx.onclick = function (e) {
+      //   var x = e.offsetX;
+      //   var y = e.offsetY;
+      //   console.log(x, y);
+      // }
+
+      canvas.addEventListener("click", function (e) {
+        var x = e.offsetX;
+        var y = e.offsetY;
+        console.log(x, y);
+
+        if(x > 50 && x < 100 && y > 200 && y < 250){
+            console.info('点中方块了')
+        }
+      });
+
+
+      // 需要使用beginPath()方法来重新进行一次全新的绘制
+      ctx.beginPath();
+      
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = "black";
+
+      ctx.moveTo(200, 400);
+      ctx.lineTo(200, 440);
+      ctx.lineTo(240, 440);
+      ctx.lineTo(240, 400);
+      ctx.lineTo(200, 400);
+
+      ctx.stroke();
+
+      // 
+      ctx.font = "24px sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("X", 220, 420);
+
+
+
+
+
+    })();
+  </script>
+</body>
+
+</html>
