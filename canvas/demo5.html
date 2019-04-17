@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>英语</title>
+  <style>
+    #brick {
+      border: 2px solid red;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas width="445" height="860" id="brick"></canvas>
+  <script type="text/javascript">
+
+
+    (function () {
+      var canvas = document.getElementById('brick')
+      if (canvas == null || !canvas.getContext)
+        return false;
+      var context = canvas.getContext("2d");
+
+      console.log('canvas.width   ' + canvas.width);
+      console.log('canvas.height   ' + canvas.height);
+
+      // 绘制布局
+      context.fillStyle = "#CECECE"
+      context.fillRect(0, 0, canvas.width, canvas.height)
+
+      context.fillStyle = "#B9B9B9"
+      context.fillRect(10, 100, canvas.width - 10 * 2, 400)
+
+      // 绘制方格
+      // 计算方格的宽度
+      var width_1 = canvas.width - 10 * 2; // 展示方格的区域宽度
+      var num_1 = 12; // 方格个数
+      width_1 = width_1 - num_1 * 3; // 再减去方格直接3像素的间隔
+      var width_2 = parseInt(width_1 / num_1) // 方格的宽度
+      // 计算剩下的边宽度
+      var width_3 = width_1 - width_2 * num_1;
+      width_3 = width_3 / 2 // 平分剩余的宽度，把它当做起点
+
+      console.log('平分剩余的宽度 ' + width_3)
+
+      var startX = 10 + width_3, pointX = startX;
+      var startY = 100 + width_3;
+
+      context.lineWidth = 1;
+      context.strokeStyle = "#000000"
+      // context.strokeRect(startX, startY, width_2, width_2);
+
+      for (var i = 0; i < num_1; i++) {
+
+        if (i == 0) {
+
+        } else {
+          startX = startX + 3 + width_2
+        }
+        context.strokeRect(startX, startY, width_2, width_2);
+
+      }
+
+      for (var j = 1; j < 6; j++) {
+
+        if (j > 0) {
+          startX = pointX;
+          startY = startY + 3 + width_2
+        }
+
+        for (var i = 0; i < num_1; i++) {
+
+          if (i > 0) {
+            startX = startX + 3 + width_2
+          }
+
+          if(i>2 && i<9){
+            context.strokeRect(startX, startY, width_2, width_2);
+          }
+          
+
+        }
+      }
+
+
+
+      ctx = context;
+
+
+      // 
+      ctx.font = "20px sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("你好，世界", 200, 80);
+
+
+
+      canvas.addEventListener("click", function (e) {
+        var x = e.offsetX;
+        var y = e.offsetY;
+        console.log(x, y);
+
+        if (x > 50 && x < 100 && y > 200 && y < 250) {
+          console.info('点中方块了')
+        }
+      });
+
+
+      // 需要使用beginPath()方法来重新进行一次全新的绘制
+      ctx.beginPath();
+
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = "black";
+
+      ctx.moveTo(200, 400);
+      ctx.lineTo(200, 440);
+      ctx.lineTo(240, 440);
+      ctx.lineTo(240, 400);
+      ctx.lineTo(200, 400);
+
+      ctx.stroke();
+
+      // 
+      ctx.font = "24px sans-serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("X", 220, 420);
+
+
+
+
+
+    })();
+  </script>
+</body>
+
+</html>
