@@ -51,6 +51,8 @@
       context.strokeStyle = "#000000"
       // context.strokeRect(startX, startY, width_2, width_2);
 
+      var json = eval('([])')
+
       for (var i = 0; i < num_1; i++) {
 
         if (i == 0) {
@@ -75,63 +77,70 @@
             startX = startX + 3 + width_2
           }
 
-          if(i>2 && i<9){
+          if (i > 2 && i < 9) {
             context.strokeRect(startX, startY, width_2, width_2);
-          }
-          
 
+            let aaa = startX + ',' + startY + ',' + startX + width_2 + ',' + startY + width_2
+            let bbb = i + ',' + j
+            json.push({
+              aaa : aaa
+            })
         }
+
+
       }
+    }
 
 
+    console.log(json)
 
       ctx = context;
 
 
-      // 
-      ctx.font = "20px sans-serif";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText("你好，世界", 200, 80);
+    // 
+    ctx.font = "20px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("你好，世界", 200, 80);
 
 
 
-      canvas.addEventListener("click", function (e) {
-        var x = e.offsetX;
-        var y = e.offsetY;
-        console.log(x, y);
+    canvas.addEventListener("click", function (e) {
+      var x = e.offsetX;
+      var y = e.offsetY;
+      console.log(x, y);
 
-        if (x > 50 && x < 100 && y > 200 && y < 250) {
-          console.info('点中方块了')
-        }
-      });
-
-
-      // 需要使用beginPath()方法来重新进行一次全新的绘制
-      ctx.beginPath();
-
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = "black";
-
-      ctx.moveTo(200, 400);
-      ctx.lineTo(200, 440);
-      ctx.lineTo(240, 440);
-      ctx.lineTo(240, 400);
-      ctx.lineTo(200, 400);
-
-      ctx.stroke();
-
-      // 
-      ctx.font = "24px sans-serif";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText("X", 220, 420);
+      if (x > 50 && x < 100 && y > 200 && y < 250) {
+        console.info('点中方块了')
+      }
+    });
 
 
+    // 需要使用beginPath()方法来重新进行一次全新的绘制
+    ctx.beginPath();
+
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "black";
+
+    ctx.moveTo(200, 400);
+    ctx.lineTo(200, 440);
+    ctx.lineTo(240, 440);
+    ctx.lineTo(240, 400);
+    ctx.lineTo(200, 400);
+
+    ctx.stroke();
+
+    // 
+    ctx.font = "24px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("X", 220, 420);
 
 
 
-    })();
+
+
+    }) ();
   </script>
 </body>
 
