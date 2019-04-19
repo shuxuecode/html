@@ -319,6 +319,13 @@
 
                     // 清除 
                     // context.clearRect(selectX, selectY, width_2, width_2);
+
+                    context.fillStyle = "#B9B9B9";
+                    context.beginPath();
+                    context.fillRect(selectX - 2, selectY - 2, width_2 + 4, width_2 + 4);
+                    context.closePath();
+
+
                     // 把原先的还原
                     context.lineWidth = 1;
                     context.strokeStyle = "#000000"
@@ -329,7 +336,7 @@
                     selectY = yArray[yPoint * 2]
 
                     context.lineWidth = 2;
-                    context.strokeStyle = "#000000"
+                    context.strokeStyle = "#cc0000"
                     context.strokeRect(selectX, selectY, width_2, width_2);
                   } else {
                     // 记录坐标
@@ -337,7 +344,7 @@
                     selectY = yArray[yPoint * 2]
 
                     context.lineWidth = 2;
-                    context.strokeStyle = "#000000"
+                    context.strokeStyle = "#cc0000"
                     context.strokeRect(selectX, selectY, width_2, width_2);
                   }
 
