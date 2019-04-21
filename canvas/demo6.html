@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>英语</title>
+  <style>
+    #brick {
+      border: 2px solid red;
+    }
+  </style>
+</head>
+
+<body>
+  <div width="445" height="860" id="div"></div>
+  <script src="https://cdn.bootcss.com/phaser/2.6.2/phaser.min.js"></script>
+  <script type="text/javascript">
+
+    var array = [];
+    for (var i = 0; i < 10; i++) {
+      array[i] = [];
+      for (var j = 0; j < 10; j++) {
+        array[i][j] = {};
+        array[i][j].x = j;
+        array[i][j].zsx = new Date();
+
+        if (i == 2) {
+          array[i][j].show = true;
+        } else {
+          array[i][j].show = false;
+        }
+
+
+      }
+
+    }
+
+    console.log(array)
+
+
+    // 各种变量定义
+    let gameWidth = 400;
+    let gameHeight = 600;
+    // 方格的个数
+    let cellNum = 10;
+    // 每个方格的宽度
+    let cellWidth;
+    // 绘制方格的开始坐标点 
+    var startX, startY, pointX;
+
+
+    var bmd = [];
+    var block = [];
+    var cellGroup = [];
+    var cellGroupBack = [];
+
+    var letterGroup = [];
+
+
+
+    var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'div', {
+      preload: preload,
+      create: create,
+      update: update
+    })
+
+    function preload() {
+      // 背景
+      // game.add.tileSprite(0, 0, game.width, game.height, 'red');
+
+      // 背景颜色
+      game.stage.backgroundColor = '#CECECE';
+
+      // 计算中间区域的宽度
+      var mainWidth = gameWidth - 10 * 2;
+
+      //新建图形，第一个参数为x轴位置，第二个参数为y轴位置
+      const graphicObject = game.add.graphics(10, 100);
+      //画一个黑色的矩形
+      graphicObject.beginFill(0xB9B9B9);  //设置矩形的颜色
+      graphicObject.drawRect(0, 0, mainWidth, mainWidth);   //设置矩形的x,y,width,height
+
+
+      // 绘制方格 展示方格的区域宽度 mainWidth
+
+      // 计算方格的宽度
+      // 方格个数 cellNum
+      var width_1 = mainWidth - cellNum * 3; // 再减去方格之间3像素的间隔
+      var width_2 = parseInt(width_1 / cellNum) // 方格的宽度，取整操作
+      console.info("每个方格的宽度： " + width_2)
+      // 计算剩下的边宽度
+      var width_3 = width_1 - width_2 * cellNum;
+      width_3 = width_3 / 2 // 平分剩余的宽度，把它当做起点
+
+      console.log('平分剩余的宽度 ' + width_3)
+
+      startX = 10 + width_3, pointX = startX;
+      startY = 100 + width_3;
+
+      cellWidth = width_2;
+
+
+    }
+
+
+
+
+
+    function create() {
+
+      // 添加标题
+      // var title = game.add.text(game.world.centerX, game.world.height * 0.5, '英语接龙', {
+      //   fontSize: '20px',
+      //   fontWeight: 'bold',
+      //   fill: '#f2bb15'
+      // });
+
+
+      //以下代码为获取游戏界面大小
+      var width = game.world.width / 4;
+      var height = game.world.height / 4;
+      //以下代码为产生贴图数据
+      for (var i = 0; i < 16; i++) {
+        bmd[i] = game.add.bitmapData(width, height);
+        bmd[i].ctx.beginPath();
+        bmd[i].ctx.rect(0, 0, width, height);
+        bmd[i].ctx.strokeStyle = "lightgray";
+        bmd[i].ctx.strokeRect(0, 0, width, height);
+        bmd[i].ctx.fillStyle = 'dimgray';
+
+
+      }
+
+      //以下代码为生成贴图
+      // for (var i = 0; i < bmd.length; i++) {
+      //   bmd[i].ctx.fill();
+      //   bmd[i].ctx.stroke();
+      //   block[i] = game.add.sprite(0, 0, bmd[i]);
+      //   block[i].inputEnabled = true;
+      //   block[i].tint = 0xffffff;//778899
+      // }
+
+
+      // //以下代码为层次排列
+      // for (var i = 1; i < block.length; i++) {
+      //   if (i % 4 == 0) {
+      //     block[i].x = block[0].x;
+      //     block[i].y = block[i - 1].y + block[i - 1].height;
+      //   } else {
+      //     block[i].x = block[i - 1].x + block[i - 1].width;
+      //     block[i].y = block[i - 1].y
+      //   }
+      // }
+
+      var i = 0;
+
+      for (var y = 0; y < array.length; y++) {
+        console.info(array[y])
+
+
+        if (y > 0) {
+          // Y坐标开始叠加，主要要算上间隔的3像素
+          startY = startY + 3 + cellWidth
+          // X坐标要重新开始
+          startX = pointX
+        }
+
+
+        var xArray = array[y];
+
+
+        for (var x = 0; x < xArray.length; x++) {
+          console.info(xArray[x])
+
+          var show = xArray[x].show
+          show = true
+
+          xArray[x] = game.add.bitmapData(cellWidth, cellWidth);
+          xArray[x].ctx.beginPath();
+
+          xArray[x].ctx.strokeStyle = "#000000";
+          if (show) {
+            xArray[x].ctx.strokeRect(0, 0, cellWidth, cellWidth);
+          }
+          // xArray[x].ctx.strokeRect(0, 0, cellWidth, cellWidth);
+          // xArray[x].ctx.stroke();
+          xArray[x].ctx.closePath();
+
+
+
+
+          var obj = game.add.bitmapData(cellWidth, cellWidth);
+          obj.ctx.beginPath();
+          obj.ctx.lineWidth = 3;
+          obj.ctx.strokeStyle = "#cc0000";
+          obj.ctx.strokeRect(0, 0, cellWidth, cellWidth);
+          obj.ctx.closePath();
+
+          if (x > 0) {
+            // 同理，X坐标也要叠加
+            startX = startX + 3 + cellWidth
+          }
+
+          // xArray[x].x = x;
+          // xArray[x].y = y;
+
+          cellGroup[i] = game.add.sprite(startX, startY, xArray[x]);
+          cellGroup[i].inputEnabled = true;
+
+
+
+          cellGroup[i].data = {
+            zsx: new Date(),
+            x: x,
+            y: y,
+            index: i
+          };
+
+
+          var word = game.add.text(startX + (cellWidth/2) - 10, startY + (cellWidth/2)-10, "H", {
+            font: "Arial",
+            fontSize: '20px',
+            // fontWeight: 'bold',
+            fill: '#cc0000',
+            // align: 'center'
+          });
+
+          console.log(word.fontSize);
+
+          // word.width = cellWidth
+          // word.height = cellWidth
+          // word.boundsAlignH = "center"
+          // word.boundsAlignV = "center"
+
+
+          letterGroup[i] = word;
+
+          cellGroupBack[i] = game.add.sprite(startX, startY, obj);
+          cellGroupBack[i].alpha = 0
+          // cellGroupBack[i].inputEnabled = true;
+
+          i++;
+          // xArray[x].temp = temp;
+
+          // cellGroup[i].data = { zsx: new Date() };
+
+
+        }
+      }
+
+
+      console.info(cellGroup)
+
+    }
+
+    function update() {
+
+      // for (var i = 0; i < block.length; i++) {
+      //   block[i].events.onInputDown.add(onDown, this);
+      // }
+
+      for (var i = 0; i < cellGroup.length; i++) {
+        cellGroup[i].events.onInputDown.add(onDown2, this);
+      }
+
+
+    }
+
+    // 临时变量
+    var chooseCellIndex = undefined;
+
+    function onDown2(cell) {
+      console.log(cell)
+      console.log(cell.data)
+      console.log(cell.data.index)
+
+      if (chooseCellIndex != undefined) {
+        cellGroup[chooseCellIndex].alpha = 1
+        cellGroupBack[chooseCellIndex].alpha = 0
+
+      }
+      cellGroup[cell.data.index].alpha = 0
+      cellGroupBack[cell.data.index].alpha = 1
+
+      chooseCellIndex = cell.data.index;
+
+
+      console.log(letterGroup[cell.data.index]);
+
+      letterGroup[cell.data.index].setText('树', true)
+
+    }
+
+    function onDown(block) {
+
+      console.log(block)
+      console.log(block.x)
+      console.log(block.y)
+
+      if (block.alpha == 0) {
+        block.alpha = 1
+      } else {
+        block.alpha = 0
+      }
+
+      // bmd[block.z - 1].ctx.beginPath();
+
+      // bmd[block.z - 1].ctx.strokeStyle = "red";
+      // bmd[block.z - 1].ctx.strokeRect(block.x, block.y, 50, 50);
+      // bmd[block.z - 1].ctx.stroke();
+
+    }
+
+
+  </script>
+</body>
+
+</html>
