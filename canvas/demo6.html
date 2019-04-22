@@ -16,19 +16,48 @@
   <script src="https://cdn.bootcss.com/phaser/2.6.2/phaser.min.js"></script>
   <script type="text/javascript">
 
-    var array = [];
-    for (var i = 0; i < 10; i++) {
-      array[i] = [];
-      for (var j = 0; j < 10; j++) {
-        array[i][j] = {};
-        array[i][j].x = j;
-        array[i][j].zsx = new Date();
+    let data = [{ "point": "3,0", "word": "c", "show": false }, { "point": "2,1", "word": "c", "show": true },
+    { "point": "3,1", "word": "o", "show": false }, { "point": "4,1", "word": "l", "show": false },
+    { "point": "5,1", "word": "u", "show": true }, { "point": "6,1", "word": "m", "show": false },
+    { "point": "7,1", "word": "n", "show": true }, { "point": "8,1", "word": "s", "show": true },
+    { "point": "1,2", "word": "r", "show": false }, { "point": "3,2", "word": "m", "show": true },
+    { "point": "1,3", "word": "e", "show": false }, { "point": "3,3", "word": "m", "show": true },
+    { "point": "0,4", "word": "s", "show": true }, { "point": "1,4", "word": "p", "show": false },
+    { "point": "2,4", "word": "r", "show": true }, { "point": "3,4", "word": "i", "show": false },
+    { "point": "4,4", "word": "n", "show": true }, { "point": "5,4", "word": "g", "show": true },
+    { "point": "1,5", "word": "o", "show": true }, { "point": "3,5", "word": "t", "show": false },
+    { "point": "4,5", "word": "a", "show": true }, { "point": "5,5", "word": "b", "show": false },
+    { "point": "6,5", "word": "l", "show": true }, { "point": "7,5", "word": "e", "show": true },
+    { "point": "1,6", "word": "r", "show": true }, { "point": "1,7", "word": "t", "show": true },
+    { "point": "2,7", "word": "h", "show": true }, { "point": "3,7", "word": "a", "show": false },
+    { "point": "4,7", "word": "n", "show": false }, { "point": "5,7", "word": "k", "show": false },
+    { "point": "6,7", "word": "s", "show": true }];
 
-        if (i == 2) {
-          array[i][j].show = true;
+    var temp = data.shift();
+
+    var array = [];
+    for (var i = 0; i < 9; i++) {
+      array[i] = [];
+      for (var j = 0; j < 9; j++) {
+        array[i][j] = {};
+
+        if (temp && temp.point == (j + "," + i)) {
+          array[i][j].visible = true;
+          array[i][j].word = temp.word;
+          array[i][j].show = temp.show;
+          array[i][j].point = temp.point;
+
+
+          temp = data.shift();
         } else {
-          array[i][j].show = false;
+          array[i][j].visible = false;
         }
+
+        // if (i == 2) {
+        //   array[i][j].show = true;
+        // } else {
+        //   array[i][j].show = false;
+        // }
 
 
       }
@@ -42,7 +71,7 @@
     let gameWidth = 400;
     let gameHeight = 600;
     // 方格的个数
-    let cellNum = 10;
+    let cellNum = 9;
     // 每个方格的宽度
     let cellWidth;
     // 绘制方格的开始坐标点 
@@ -170,16 +199,27 @@
 
 
         for (var x = 0; x < xArray.length; x++) {
+          console.info('xArray[x]')
           console.info(xArray[x])
 
-          var show = xArray[x].show
-          show = true
+          var visible = xArray[x].visible
+          // visible = true
+
+
+          var letter = '';
+          if (visible) {
+            if(xArray[x].show){
+              letter = xArray[x].word
+            }
+          }
+
+          
 
           xArray[x] = game.add.bitmapData(cellWidth, cellWidth);
           xArray[x].ctx.beginPath();
 
           xArray[x].ctx.strokeStyle = "#000000";
-          if (show) {
+          if (visible) {
             xArray[x].ctx.strokeRect(0, 0, cellWidth, cellWidth);
           }
           // xArray[x].ctx.strokeRect(0, 0, cellWidth, cellWidth);
@@ -217,11 +257,24 @@
           };
 
 
-          var word = game.add.text(startX + (cellWidth/2) - 10, startY + (cellWidth/2)-10, "H", {
-            font: "Arial",
+          // var word = game.add.text(startX + (cellWidth/2) - 10, startY + (cellWidth/2)-10, "H", {
+          //   font: "Arial",
+          //   fontSize: '20px',
+          //   // fontWeight: 'bold',
+          //   fill: '#cc0000',
+          //   // align: 'center'
+          // });
+
+          
+          console.log(letter)
+
+          var word = game.add.text(startX, startY, letter, {
+            // font: "Arial", 
+            font: "sans-serif",
             fontSize: '20px',
-            // fontWeight: 'bold',
             fill: '#cc0000',
+            boundsAlignH: "center",
+            boundsAlignV: "middle",
             // align: 'center'
           });
 
@@ -232,11 +285,14 @@
           // word.boundsAlignH = "center"
           // word.boundsAlignV = "center"
 
+          word.setTextBounds(0, 2, cellWidth, cellWidth);
+
 
           letterGroup[i] = word;
 
           cellGroupBack[i] = game.add.sprite(startX, startY, obj);
-          cellGroupBack[i].alpha = 0
+          // cellGroupBack[i].alpha = 0 // 透明度
+          cellGroupBack[i].visible = false // 是否显示
           // cellGroupBack[i].inputEnabled = true;
 
           i++;
@@ -275,19 +331,25 @@
       console.log(cell.data.index)
 
       if (chooseCellIndex != undefined) {
-        cellGroup[chooseCellIndex].alpha = 1
-        cellGroupBack[chooseCellIndex].alpha = 0
+        // cellGroup[chooseCellIndex].alpha = 1
+        cellGroup[chooseCellIndex].visible = true
+
+        // cellGroupBack[chooseCellIndex].alpha = 0
+        cellGroupBack[chooseCellIndex].visible = false
 
       }
-      cellGroup[cell.data.index].alpha = 0
-      cellGroupBack[cell.data.index].alpha = 1
+      // cellGroup[cell.data.index].alpha = 0
+      cellGroup[cell.data.index].visible = false
+
+      // cellGroupBack[cell.data.index].alpha = 1
+      cellGroupBack[cell.data.index].visible = true
 
       chooseCellIndex = cell.data.index;
 
 
       console.log(letterGroup[cell.data.index]);
 
-      letterGroup[cell.data.index].setText('树', true)
+      // letterGroup[cell.data.index].setText('树', true)
 
     }
 
