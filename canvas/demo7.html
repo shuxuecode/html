@@ -16,6 +16,8 @@
   <script src="phaser.min.js"></script>
   <script type="text/javascript">
 
+    let word = [{"word":"commit", "point":""}]
+
     let data = [{ "point": "3,0", "word": "c", "show": false }, { "point": "2,1", "word": "c", "show": true },
     { "point": "3,1", "word": "o", "show": false }, { "point": "4,1", "word": "l", "show": false },
     { "point": "5,1", "word": "u", "show": true }, { "point": "6,1", "word": "m", "show": false },
@@ -61,7 +63,8 @@
 
           temp = data.shift();
         } else {
-          array[i][j].visible = false;
+          // array[i][j].visible = false;
+          array[i][j].visible = true;
         }
       }
     }
