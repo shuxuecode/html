@@ -13,8 +13,7 @@
 </head>
 
 <body>
-  <!-- <div width="445" height="860" id="div"></div> -->
-  <script src="https://cdn.bootcss.com/phaser/2.6.2/phaser.min.js"></script>
+  <script src="phaser.min.js"></script>
   <script type="text/javascript">
 
     let data = [{ "point": "3,0", "word": "c", "show": false }, { "point": "2,1", "word": "c", "show": true },
@@ -44,10 +43,14 @@
 
     var temp = data.shift();
 
+    // 方格的个数
+    let cellNum = 9;
+
+    // 生成二维数组
     var array = [];
-    for (var i = 0; i < 9; i++) {
+    for (var i = 0; i < cellNum; i++) {
       array[i] = [];
-      for (var j = 0; j < 9; j++) {
+      for (var j = 0; j < cellNum; j++) {
         array[i][j] = {};
 
         if (temp && temp.point == (j + "," + i)) {
@@ -56,47 +59,40 @@
           array[i][j].show = temp.show;
           array[i][j].point = temp.point;
 
-
           temp = data.shift();
         } else {
           array[i][j].visible = false;
         }
-
-        // if (i == 2) {
-        //   array[i][j].show = true;
-        // } else {
-        //   array[i][j].show = false;
-        // }
-
-
       }
-
     }
-
+    console.log('二维数组为：')
     console.log(array)
 
 
     // 各种变量定义
     let gameWidth = window.innerWidth;
     let gameHeight = window.innerHeight;
-    // 方格的个数
-    let cellNum = 9;
+
     // 每个方格的宽度
     let cellWidth;
     // 绘制方格的开始坐标点 
     var startX, startY, pointX;
 
-
-    var bmd = [];
-    var block = [];
+    // 默认的方格
     var cellGroup = [];
+    // 选中状态的方格
     var cellGroupBack = [];
 
+    // 显示单词的数组
+    var wordGroup = [];
+
+    // 待填入的字母方格
+    var blockGroup = [];
+    // 待填入的字母数组
     var letterGroup = [];
 
-    var abcGroup = [];
-    var abcLetterGroup = [];
-
+    // 主要区域的开始坐标
+    let mainDivX = 10, mainDivY = 100;
 
 
     var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, '', {
@@ -106,23 +102,20 @@
     })
 
     function preload() {
-      // 背景
-      // game.add.tileSprite(0, 0, game.width, game.height, 'red');
 
       // 背景颜色
       game.stage.backgroundColor = '#CECECE';
 
-      // 计算中间区域的宽度
+      // 计算中间区域的宽度，两边留10像素 
+      // 绘制方格 展示方格的区域宽度 mainWidth
       var mainWidth = gameWidth - 10 * 2;
 
       //新建图形，第一个参数为x轴位置，第二个参数为y轴位置
-      const graphicObject = game.add.graphics(10, 100);
-      //画一个黑色的矩形
+      const graphicObject = game.add.graphics(mainDivX, mainDivY);
+      //画一个矩形
       graphicObject.beginFill(0xB9B9B9);  //设置矩形的颜色
+      // 暂定正方形
       graphicObject.drawRect(0, 0, mainWidth, mainWidth);   //设置矩形的x,y,width,height
-
-
-      // 绘制方格 展示方格的区域宽度 mainWidth
 
       // 计算方格的宽度
       // 方格个数 cellNum
@@ -133,18 +126,13 @@
       var width_3 = width_1 - width_2 * cellNum;
       width_3 = width_3 / 2 // 平分剩余的宽度，把它当做起点
 
-      console.log('平分剩余的宽度 ' + width_3)
+      // console.log('平分剩余的宽度 ' + width_3)
 
-      startX = 10 + width_3, pointX = startX;
-      startY = 100 + width_3;
+      startX = mainDivX + width_3, pointX = startX;
+      startY = mainDivY + width_3;
 
       cellWidth = width_2;
-
-
     }
-
-
-
 
 
     function create() {
@@ -167,13 +155,12 @@
 
 
         for (var x = 0; x < xArray.length; x++) {
-          console.info('xArray[x]')
-          console.info(xArray[x])
-
+          // console.info('xArray[x]')
+          // console.info(xArray[x])
 
 
           var visible = xArray[x].visible
-          // visible = true
+          var show = xArray[x].show
 
           if (!visible) {
             continue;
@@ -182,98 +169,32 @@
 
           var letter = '';
           if (visible) {
-            if (xArray[x].show) {
+            if (show) {
               letter = xArray[x].word
             }
           }
 
-
-
-          var mapData = game.add.bitmapData(cellWidth, cellWidth);
-          mapData.ctx.beginPath();
-
-          // 填充
-          if (xArray[x].show) {
-            mapData.ctx.rect(0, 0, cellWidth, cellWidth);
-            mapData.ctx.fillStyle = '#aaaaaa';
-            mapData.ctx.fill();
-          }
-          mapData.ctx.strokeStyle = "#000000";
-          if (visible) {
-            mapData.ctx.strokeRect(0, 0, cellWidth, cellWidth);
-          }
-          // xArray[x].ctx.strokeRect(0, 0, cellWidth, cellWidth);
-          // xArray[x].ctx.stroke();
-          mapData.ctx.closePath();
-
-
-
-
-          var obj = game.add.bitmapData(cellWidth, cellWidth);
-          obj.ctx.beginPath();
-          obj.ctx.lineWidth = 4;
-          obj.ctx.strokeStyle = "#cc0000";
-          obj.ctx.strokeRect(0, 0, cellWidth, cellWidth);
-
-
-
-          obj.ctx.closePath();
+          // 生成默认样式的方块
+          var cellMapData = createBitmapData(1, "#000000", show);
+          // 生成选中样式的方块
+          var cellBackMapData = createBitmapData(4, "#cc0000", false);
 
           if (x > 0) {
             // 同理，X坐标也要叠加
             startX = startX + 3 + cellWidth
           }
 
-          // xArray[x].x = x;
-          // xArray[x].y = y;
-
-          cellGroup[i] = game.add.sprite(startX, startY, mapData);
+          cellGroup[i] = game.add.sprite(startX, startY, cellMapData);
           cellGroup[i].inputEnabled = true;
 
-
-
           cellGroup[i].data = {
-            zsx: new Date(),
             x: x,
             y: y,
             index: i,
             data: xArray[x]
           };
 
-
-          // var word = game.add.text(startX + (cellWidth/2) - 10, startY + (cellWidth/2)-10, "H", {
-          //   font: "Arial",
-          //   fontSize: '20px',
-          //   // fontWeight: 'bold',
-          //   fill: '#cc0000',
-          //   // align: 'center'
-          // });
-
-
-          console.log(letter)
-
-          var word = game.add.text(startX, startY, letter, {
-            // font: "Arial", 
-            font: "sans-serif",
-            fontSize: '20px',
-            fill: '#cc0000',
-            boundsAlignH: "center",
-            boundsAlignV: "middle",
-            // align: 'center'
-          });
-
-          console.log(word.fontSize);
-
-          // word.width = cellWidth
-          // word.height = cellWidth
-          // word.boundsAlignH = "center"
-          // word.boundsAlignV = "center"
-
-          word.setTextBounds(0, 2, cellWidth, cellWidth);
-
-          letterGroup[i] = word;
-
-          cellGroupBack[i] = game.add.sprite(startX, startY, obj);
+          cellGroupBack[i] = game.add.sprite(startX, startY, cellBackMapData);
           // cellGroupBack[i].alpha = 0 // 透明度
           cellGroupBack[i].visible = false // 是否显示
           cellGroupBack[i].inputEnabled = true;
@@ -285,11 +206,15 @@
             data: xArray[x]
           };
 
+
+          console.log(letter)
+
+          // 创建字母
+          var word = createText(startX, startY, letter, '#cc0000')
+
+          wordGroup[i] = word;
+
           i++;
-          // xArray[x].temp = temp;
-
-          // cellGroup[i].data = { zsx: new Date() };
-
 
         }
       }
@@ -320,29 +245,19 @@
             break;
           }
 
-          var mapData = game.add.bitmapData(cellWidth, cellWidth);
-          mapData.ctx.beginPath();
 
-          mapData.ctx.strokeStyle = "#000000";
-          mapData.ctx.strokeRect(0, 0, cellWidth, cellWidth);
-          mapData.ctx.closePath();
-
-          var obj = game.add.bitmapData(cellWidth, cellWidth);
-          obj.ctx.beginPath();
-          obj.ctx.lineWidth = 3;
-          obj.ctx.strokeStyle = "#cc0000";
-          obj.ctx.strokeRect(0, 0, cellWidth, cellWidth);
-          obj.ctx.closePath();
+          // 生成默认样式的方块
+          var mapData = createBitmapData(1, "#000000", false);
 
           if (x > 0) {
             // 同理，X坐标也要叠加
             wordX = wordX + 3 + cellWidth
           }
 
-          abcGroup[i] = game.add.sprite(wordX, wordY, mapData);
-          abcGroup[i].inputEnabled = true;
+          blockGroup[i] = game.add.sprite(wordX, wordY, mapData);
+          blockGroup[i].inputEnabled = true;
 
-          abcGroup[i].data = {
+          blockGroup[i].data = {
             x: x,
             y: y,
             index: i,
@@ -351,64 +266,42 @@
 
           var letter = tempWord.word;
 
-          var word = game.add.text(wordX, wordY, letter, {
-            // font: "Arial", 
-            font: "sans-serif",
-            fontSize: '20px',
-            fill: '#cc0000',
-            boundsAlignH: "center",
-            boundsAlignV: "middle",
-            // align: 'center'
-          });
+          var word = createText(wordX, wordY, letter, '#cc0000')
 
-          word.setTextBounds(0, 2, cellWidth, cellWidth);
-
-          abcLetterGroup[i] = word;
+          letterGroup[i] = word;
 
           tempWord = data2.shift();
           i++;
-
-
         }
-
-
-
       }
 
-
-      console.info(cellGroup)
-
+      // console.info(cellGroup)
       cellGroup[0].visible = false
       cellGroupBack[0].visible = true
-
     }
+
+
 
     function update() {
 
-      // for (var i = 0; i < block.length; i++) {
-      //   block[i].events.onInputDown.add(onDown, this);
-      // }
-
+      // 添加选中事件
       for (var i = 0; i < cellGroup.length; i++) {
-        // if(i == 0){
-        //   console.log(cellGroup[i].data.data.show)
-        // }
-
+        // 如果不是待填字母不需要绑定事件
         if (!cellGroup[i].data.data.show) {
           cellGroup[i].events.onInputDown.add(onDown2, this);
         }
-
       }
 
+      // 选中框也添加事件
       for (var i = 0; i < cellGroupBack.length; i++) {
         if (!cellGroup[i].data.data.show) {
           cellGroupBack[i].events.onInputDown.add(onDown2, this);
         }
       }
 
-      for (var i = 0; i < abcGroup.length; i++) {
-        abcGroup[i].events.onInputDown.add(onDown3, this);
-
+      // 待填字母方块添加事件
+      for (var i = 0; i < blockGroup.length; i++) {
+        blockGroup[i].events.onInputDown.add(onDown3, this);
       }
 
     }
@@ -417,10 +310,11 @@
     var chooseCellIndex = 0;
 
     function onDown2(cell) {
-      console.log(cell)
-      console.log(cell.data)
-      console.log(cell.data.index)
+      // console.log(cell)
+      // console.log(cell.data)
+      // console.log(cell.data.index)
 
+      // 选中的方格
       var newIndex = cell.data.index
 
       // 如果点击的方块和原先的一样则不需要改变方块样式
@@ -445,63 +339,89 @@
       // 获取该方块是否已经有字母了，有则需要清除还原，没有则不需要操作
       var letterIndex = cellGroup[newIndex].data.letterIndex
       if (letterIndex) {
-        abcGroup[letterIndex].visible = true
-        abcLetterGroup[letterIndex].visible = true
+        blockGroup[letterIndex].visible = true
+        letterGroup[letterIndex].visible = true
 
         cellGroup[newIndex].data.letterIndex = undefined
-        letterGroup[newIndex].setText("", true)
-
+        wordGroup[newIndex].setText("", true)
       }
 
+      // 修改变量为最新值
       chooseCellIndex = newIndex
-
-      // console.log(letterGroup[cell.data.index]);
 
     }
 
 
 
     function onDown3(letter) {
-      console.log(letter)
-
+      // console.log(letter)
 
       var letterIndex = cellGroup[chooseCellIndex].data.letterIndex
       // 位置有字母则需要把原先的还原
       if (letterIndex) {
-        abcGroup[letterIndex].visible = true
-        abcLetterGroup[letterIndex].visible = true
+        blockGroup[letterIndex].visible = true
+        letterGroup[letterIndex].visible = true
       }
 
+      // 隐藏点击的字母
       letter.visible = false;
       var index = letter.data.index;
+      letterGroup[index].visible = false
 
-      // console.log(abcLetterGroup[index])
-      abcLetterGroup[index].visible = false
-
-      letterGroup[chooseCellIndex].setText(abcLetterGroup[index].text, true)
-
+      // 把点击的字母放到选中的方块上
+      wordGroup[chooseCellIndex].setText(letterGroup[index].text, true)
+      // 修改选中方块的字母下标
       cellGroup[chooseCellIndex].data.letterIndex = index
 
     }
 
-    function onDown(block) {
 
-      console.log(block)
-      console.log(block.x)
-      console.log(block.y)
+    /**
+      创建 BitmapData
+      lineWidth 线宽
+      strokeStyle 边框样式
+      show  是否填充
+    */
 
-      if (block.alpha == 0) {
-        block.alpha = 1
-      } else {
-        block.alpha = 0
+    function createBitmapData(lineWidth, strokeStyle, show) {
+      var mapData = game.add.bitmapData(cellWidth, cellWidth);
+
+      mapData.ctx.beginPath();
+      mapData.ctx.lineWidth = lineWidth
+      mapData.ctx.strokeStyle = strokeStyle
+      mapData.ctx.strokeRect(0, 0, cellWidth, cellWidth)
+
+      // 填充
+      if (show) {
+        mapData.ctx.rect(lineWidth, lineWidth, cellWidth - (lineWidth * 2), cellWidth - (lineWidth * 2));
+        mapData.ctx.fillStyle = '#aaaaaa';
+        mapData.ctx.fill();
       }
 
-      // bmd[block.z - 1].ctx.beginPath();
+      mapData.ctx.closePath();
 
-      // bmd[block.z - 1].ctx.strokeStyle = "red";
-      // bmd[block.z - 1].ctx.strokeRect(block.x, block.y, 50, 50);
-      // bmd[block.z - 1].ctx.stroke();
+      return mapData;
+    }
 
+    /**
+      创建字母
+      x 
+      y
+      text 显示文本
+      fontColor  颜色
+    */
+    function createText(x, y, text, fontColor) {
+      var word = game.add.text(x, y, text, {
+        font: "sans-serif",
+        fontSize: '20px',
+        fill: fontColor,
+        boundsAlignH: "center",
+        boundsAlignV: "middle",
+      });
+
+      word.setTextBounds(0, 2, cellWidth, cellWidth);
+
+      return word;
     }
 
 
