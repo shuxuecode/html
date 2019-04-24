@@ -37,52 +37,56 @@
 
 
     data = [
-      { "x": 3, "y": 0, "word": "c", "show": false },
-      { "x": 2, "y": 1, "word": "c", "show": true },
-      { "x": 3, "y": 1, "word": "o", "show": false },
-      { "x": 4, "y": 1, "word": "l", "show": false },
-      { "x": 5, "y": 1, "word": "u", "show": true },
-      { "x": 6, "y": 1, "word": "m", "show": false },
-      { "x": 7, "y": 1, "word": "n", "show": true },
-      { "x": 8, "y": 1, "word": "s", "show": true },
-      { "x": 1, "y": 2, "word": "r", "show": false },
-      { "x": 3, "y": 2, "word": "m", "show": true },
-      { "x": 1, "y": 3, "word": "e", "show": false },
-      { "x": 3, "y": 3, "word": "m", "show": true },
-      { "x": 0, "y": 4, "word": "s", "show": true },
-      { "x": 1, "y": 4, "word": "p", "show": false },
-      { "x": 2, "y": 4, "word": "r", "show": true },
-      { "x": 3, "y": 4, "word": "i", "show": false },
-      { "x": 4, "y": 4, "word": "n", "show": true },
-      { "x": 5, "y": 4, "word": "g", "show": true },
-      { "x": 1, "y": 5, "word": "o", "show": true },
-      { "x": 3, "y": 5, "word": "t", "show": false },
-      { "x": 4, "y": 5, "word": "a", "show": true },
-      { "x": 5, "y": 5, "word": "b", "show": false },
-      { "x": 6, "y": 5, "word": "l", "show": true },
-      { "x": 7, "y": 5, "word": "e", "show": true },
-      { "x": 1, "y": 6, "word": "r", "show": true },
-      { "x": 1, "y": 7, "word": "t", "show": true },
-      { "x": 2, "y": 7, "word": "h", "show": true },
-      { "x": 3, "y": 7, "word": "a", "show": false },
-      { "x": 4, "y": 7, "word": "n", "show": false },
-      { "x": 5, "y": 7, "word": "k", "show": false },
-      { "x": 6, "y": 7, "word": "s", "show": true }];
+      { "x": 3, "y": 0, "word": "c", "show": false, "belong": ["commit"] },
+      { "x": 2, "y": 1, "word": "c", "show": true, "belong": ["columns"] },
+      { "x": 3, "y": 1, "word": "o", "show": false, "belong": ["commit", "columns"] },
+      { "x": 4, "y": 1, "word": "l", "show": false, "belong": ["columns"] },
+      { "x": 5, "y": 1, "word": "u", "show": true, "belong": ["columns"] },
+      { "x": 6, "y": 1, "word": "m", "show": false, "belong": ["columns"] },
+      { "x": 7, "y": 1, "word": "n", "show": true, "belong": ["columns"] },
+      { "x": 8, "y": 1, "word": "s", "show": true, "belong": ["columns"] },
+      { "x": 1, "y": 2, "word": "r", "show": false, "belong": ["report"] },
+      { "x": 3, "y": 2, "word": "m", "show": true, "belong": ["commit"] },
+      { "x": 1, "y": 3, "word": "e", "show": false, "belong": ["report"] },
+      { "x": 3, "y": 3, "word": "m", "show": true, "belong": ["commit"] },
+      { "x": 0, "y": 4, "word": "s", "show": true, "belong": ["spring"] },
+      { "x": 1, "y": 4, "word": "p", "show": false, "belong": ["report", "spring"] },
+      { "x": 2, "y": 4, "word": "r", "show": true, "belong": ["spring"] },
+      { "x": 3, "y": 4, "word": "i", "show": false, "belong": ["commit", "spring"] },
+      { "x": 4, "y": 4, "word": "n", "show": true, "belong": ["spring"] },
+      { "x": 5, "y": 4, "word": "g", "show": true, "belong": ["spring"] },
+      { "x": 1, "y": 5, "word": "o", "show": true, "belong": ["report"] },
+      { "x": 3, "y": 5, "word": "t", "show": false, "belong": ["commit", "table"] },
+      { "x": 4, "y": 5, "word": "a", "show": true, "belong": ["table"] },
+      { "x": 5, "y": 5, "word": "b", "show": false, "belong": ["table"] },
+      { "x": 6, "y": 5, "word": "l", "show": true, "belong": ["table"] },
+      { "x": 7, "y": 5, "word": "e", "show": true, "belong": ["table"] },
+      { "x": 1, "y": 6, "word": "r", "show": true, "belong": ["report"] },
+      { "x": 1, "y": 7, "word": "t", "show": true, "belong": ["report", "thanks"] },
+      { "x": 2, "y": 7, "word": "h", "show": true, "belong": ["thanks"] },
+      { "x": 3, "y": 7, "word": "a", "show": false, "belong": ["thanks"] },
+      { "x": 4, "y": 7, "word": "n", "show": false, "belong": ["thanks"] },
+      { "x": 5, "y": 7, "word": "k", "show": false, "belong": ["thanks"] },
+      { "x": 6, "y": 7, "word": "s", "show": true, "belong": ["thanks"] }];
 
     var wordArray =
     {
-      "table": [{ "x": 3, "y": 5 }, { "x": 4, "y": 5 }, { "x": 5, "y": 5 }, { "x": 6, "y": 5 }, { "x": 7, "y": 5 }],
-      "commit": [{ "x": 3, "y": 0 }, { "x": 3, "y": 1 }, { "x": 3, "y": 2 }, { "x": 3, "y": 3 }, { "x": 3, "y": 4 }, { "x": 3, "y": 5 }]
+      "table": { "coordinate": [{ "x": 3, "y": 5 }, { "x": 4, "y": 5 }, { "x": 5, "y": 5 }, { "x": 6, "y": 5 }, { "x": 7, "y": 5 }] },
+      "commit": { "coordinate": [{ "x": 3, "y": 0 }, { "x": 3, "y": 1 }, { "x": 3, "y": 2 }, { "x": 3, "y": 3 }, { "x": 3, "y": 4 }, { "x": 3, "y": 5 }] },
+      "columns": { "coordinate": [{ "x": 2, "y": 1 }, { "x": 3, "y": 1 }, { "x": 4, "y": 1 }, { "x": 5, "y": 1 }, { "x": 6, "y": 1 }, { "x": 7, "y": 1 }, { "x": 8, "y": 1 }] },
+      "spring": { "coordinate": [{ "x": 0, "y": 4 }, { "x": 1, "y": 4 }, { "x": 2, "y": 4 }, { "x": 3, "y": 4 }, { "x": 4, "y": 4 }, { "x": 5, "y": 4 }] },
+      "report": { "coordinate": [{ "x": 1, "y": 2 }, { "x": 1, "y": 3 }, { "x": 1, "y": 4 }, { "x": 1, "y": 5 }, { "x": 1, "y": 6 }, { "x": 1, "y": 7 }] },
+      "thanks": { "coordinate": [{ "x": 1, "y": 7 }, { "x": 2, "y": 7 }, { "x": 3, "y": 7 }, { "x": 4, "y": 7 }, { "x": 5, "y": 7 }, { "x": 6, "y": 7 }] }
     }
 
-    wordArray = [
-      { "word": "table", "coordinate": [{ "x": 3, "y": 5 }, { "x": 4, "y": 5 }, { "x": 5, "y": 5 }, { "x": 6, "y": 5 }, { "x": 7, "y": 5 }] },
-      { "word": "commit", "coordinate": [{ "x": 3, "y": 0 }, { "x": 3, "y": 1 }, { "x": 3, "y": 2 }, { "x": 3, "y": 3 }, { "x": 3, "y": 4 }, { "x": 3, "y": 5 }] },
-      { "word": "columns", "coordinate": [{ "x": 2, "y": 1 }, { "x": 3, "y": 1 }, { "x": 4, "y": 1 }, { "x": 5, "y": 1 }, { "x": 6, "y": 1 }, { "x": 7, "y": 1 }, { "x": 8, "y": 1 }] },
-      { "word": "spring", "coordinate": [{ "x": 0, "y": 4 }, { "x": 1, "y": 4 }, { "x": 2, "y": 4 }, { "x": 3, "y": 4 }, { "x": 4, "y": 4 }, { "x": 5, "y": 4 }] },
-      { "word": "report", "coordinate": [{ "x": 1, "y": 2 }, { "x": 1, "y": 3 }, { "x": 1, "y": 4 }, { "x": 1, "y": 5 }, { "x": 1, "y": 6 }, { "x": 1, "y": 7 }] },
-      { "word": "thanks", "coordinate": [{ "x": 1, "y": 7 }, { "x": 2, "y": 7 }, { "x": 3, "y": 7 }, { "x": 4, "y": 7 }, { "x": 5, "y": 7 }, { "x": 6, "y": 7 }] }
-    ]
+    // wordArray = [
+    //   { "word": "table", "coordinate": [{ "x": 3, "y": 5 }, { "x": 4, "y": 5 }, { "x": 5, "y": 5 }, { "x": 6, "y": 5 }, { "x": 7, "y": 5 }] },
+    //   { "word": "commit", "coordinate": [{ "x": 3, "y": 0 }, { "x": 3, "y": 1 }, { "x": 3, "y": 2 }, { "x": 3, "y": 3 }, { "x": 3, "y": 4 }, { "x": 3, "y": 5 }] },
+    //   { "word": "columns", "coordinate": [{ "x": 2, "y": 1 }, { "x": 3, "y": 1 }, { "x": 4, "y": 1 }, { "x": 5, "y": 1 }, { "x": 6, "y": 1 }, { "x": 7, "y": 1 }, { "x": 8, "y": 1 }] },
+    //   { "word": "spring", "coordinate": [{ "x": 0, "y": 4 }, { "x": 1, "y": 4 }, { "x": 2, "y": 4 }, { "x": 3, "y": 4 }, { "x": 4, "y": 4 }, { "x": 5, "y": 4 }] },
+    //   { "word": "report", "coordinate": [{ "x": 1, "y": 2 }, { "x": 1, "y": 3 }, { "x": 1, "y": 4 }, { "x": 1, "y": 5 }, { "x": 1, "y": 6 }, { "x": 1, "y": 7 }] },
+    //   { "word": "thanks", "coordinate": [{ "x": 1, "y": 7 }, { "x": 2, "y": 7 }, { "x": 3, "y": 7 }, { "x": 4, "y": 7 }, { "x": 5, "y": 7 }, { "x": 6, "y": 7 }] }
+    // ]
 
 
     // 待选取的字母
@@ -348,7 +352,6 @@
       cellGroup[0].visible = false
       cellGroupBack[0].visible = true
 
-      // 添加一个方法
 
     }
 
@@ -439,6 +442,9 @@
       // 修改选中方块的字母下标
       cellGroup[chooseCellIndex].data.letterIndex = index
 
+      // 检测填的字母所在的单词是否已拼写正确
+      checkWord(chooseCellIndex)
+
 
       var oldCellIndex = array[x][y].index;
       var nextCell = getNextCell(x, y);
@@ -448,52 +454,6 @@
         updateCellVisible(newCellIndex, oldCellIndex)
         // 修改变量为最新值
         chooseCellIndex = newCellIndex
-      }
-
-      var aaaa = wordArray[0].coordinate
-      // 默认为填对了，如果有一个错误，则全部错误
-      var isBingo = true
-      for (var i = 0, len = aaaa.length; i < len; i++) {
-        var wordArrayX = aaaa[i].x
-        var wordArrayY = aaaa[i].y
-        // 如果为填字母方格
-        if (!array[wordArrayX][wordArrayY].show) {
-          var wordArrayIndex = array[wordArrayX][wordArrayY].index
-
-          // console.info(wordArrayIndex)
-          // console.info(cellGroup[wordArrayIndex].data.data.word)
-          // console.info(wordGroup[wordArrayIndex].text)
-          if (cellGroup[wordArrayIndex].data.data.word == wordGroup[wordArrayIndex].text) {
-            console.info(wordGroup[wordArrayIndex].text + '   字母填对了')
-          } else {
-            isBingo = false
-          }
-
-        }
-      }
-
-      if (isBingo) {
-        console.info("单词填对了")
-        for (var i = 0, len = aaaa.length; i < len; i++) {
-          var wordArrayX = aaaa[i].x
-          var wordArrayY = aaaa[i].y
-
-          var wordArrayIndex = array[wordArrayX][wordArrayY].index
-
-          console.info(cellGroup[wordArrayIndex])
-          console.info(wordGroup[wordArrayIndex])
-
-          cellGroup[wordArrayIndex].visible = false
-          cellGroupRight[wordArrayIndex].visible = true
-          wordGroup[wordArrayIndex].fill = '#fff'
-
-
-        }
-
-        // 开始找下一个未完成的单词
-        wordArray[0].ok = true;
-
-        // wordArray["commit"][0]
       }
 
     }
@@ -634,6 +594,105 @@
       return array[x][y]
     }
 
+    /**
+    检查单词是否已经正确
+    */
+    function checkWord(index) {
+      // 获取单词数组
+      var belong = cellGroup[index].data.data.belong
+
+      var word1 = belong[0]
+
+      checkWordArray(word1)
+
+      word1 = belong[1]
+      if (word1 != undefined) {
+        checkWordArray(word1)
+      }
+    }
+
+
+    function checkWordArray(word1) {
+      var points = wordArray[word1].coordinate
+      // 默认为填对了，如果有一个错误，则全部错误
+      var isBingo = true
+      for (var i = 0, len = points.length; i < len; i++) {
+        var wordArrayX = points[i].x
+        var wordArrayY = points[i].y
+        // 如果为填字母方格
+        if (!array[wordArrayX][wordArrayY].show) {
+          var wordArrayIndex = array[wordArrayX][wordArrayY].index
+
+          // console.info(wordArrayIndex)
+          // console.info(cellGroup[wordArrayIndex].data.data.word)
+          // console.info(wordGroup[wordArrayIndex].text)
+          if (cellGroup[wordArrayIndex].data.data.word == wordGroup[wordArrayIndex].text) {
+            console.info(wordGroup[wordArrayIndex].text + '   字母填对了')
+          } else {
+            isBingo = false
+          }
+        }
+      }
+
+      if (isBingo) {
+        console.info("单词填对了")
+        for (var i = 0, len = points.length; i < len; i++) {
+          var wordArrayX = points[i].x
+          var wordArrayY = points[i].y
+
+          var wordArrayIndex = array[wordArrayX][wordArrayY].index
+
+          // console.info(cellGroup[wordArrayIndex])
+          // console.info(wordGroup[wordArrayIndex])
+
+          cellGroup[wordArrayIndex].visible = false
+          cellGroupRight[wordArrayIndex].visible = true
+          wordGroup[wordArrayIndex].fill = '#fff'
+        }
+        // 开始找下一个未完成的单词
+        wordArray[word1].ok = true;
+
+        getNextCellPoint()
+      }
+
+    }
+
+    function getNextCellPoint() {
+      var x = undefined, y = undefined;
+      for (key in wordArray) {
+        // console.info(wordArray[key])
+        var obj = wordArray[key]
+        if (!obj.ok) {
+          var coordinate = obj.coordinate
+          for (var i = 0; i < coordinate.length; i++) {
+
+            x = coordinate[i].x
+            y = coordinate[i].y
+            // 只有待填入的坐标
+            if (array[x][y].show == false) {
+              break;
+            }
+          }
+
+        }
+      }
+
+      if (x == undefined) {
+        // alert("恭喜你全部填对了！！！")
+        game.add.text(startX, startY + cellWidth * 3, "恭喜你全部填对了！！！", {
+          font: "Arial",
+          fontSize: '40px',
+          fontWeight: 'bold',
+          fill: '#cc0000',
+          // align: 'center'
+        });
+      } else {
+        // 修改方块的显示状态，原先的取消选中，这次选择的添加选中样式
+        updateCellVisible(array[x][y].index, chooseCellIndex)
+        // 修改变量为最新值
+        chooseCellIndex = array[x][y].index
+      }
+    }
 
 
   </script>
