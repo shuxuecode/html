@@ -75,6 +75,15 @@
       "commit": [{ "x": 3, "y": 0 }, { "x": 3, "y": 1 }, { "x": 3, "y": 2 }, { "x": 3, "y": 3 }, { "x": 3, "y": 4 }, { "x": 3, "y": 5 }]
     }
 
+    wordArray = [
+      { "word": "table", "coordinate": [{ "x": 3, "y": 5 }, { "x": 4, "y": 5 }, { "x": 5, "y": 5 }, { "x": 6, "y": 5 }, { "x": 7, "y": 5 }] },
+      { "word": "commit", "coordinate": [{ "x": 3, "y": 0 }, { "x": 3, "y": 1 }, { "x": 3, "y": 2 }, { "x": 3, "y": 3 }, { "x": 3, "y": 4 }, { "x": 3, "y": 5 }] },
+      { "word": "columns", "coordinate": [{ "x": 2, "y": 1 }, { "x": 3, "y": 1 }, { "x": 4, "y": 1 }, { "x": 5, "y": 1 }, { "x": 6, "y": 1 }, { "x": 7, "y": 1 }, { "x": 8, "y": 1 }] },
+      { "word": "spring", "coordinate": [{ "x": 0, "y": 4 }, { "x": 1, "y": 4 }, { "x": 2, "y": 4 }, { "x": 3, "y": 4 }, { "x": 4, "y": 4 }, { "x": 5, "y": 4 }] },
+      { "word": "report", "coordinate": [{ "x": 1, "y": 2 }, { "x": 1, "y": 3 }, { "x": 1, "y": 4 }, { "x": 1, "y": 5 }, { "x": 1, "y": 6 }, { "x": 1, "y": 7 }] },
+      { "word": "thanks", "coordinate": [{ "x": 1, "y": 7 }, { "x": 2, "y": 7 }, { "x": 3, "y": 7 }, { "x": 4, "y": 7 }, { "x": 5, "y": 7 }, { "x": 6, "y": 7 }] }
+    ]
+
 
     // 待选取的字母
     let data2 = [];
@@ -338,6 +347,9 @@
       // console.info(cellGroup)
       cellGroup[0].visible = false
       cellGroupBack[0].visible = true
+
+      // 添加一个方法
+
     }
 
 
@@ -438,7 +450,7 @@
         chooseCellIndex = newCellIndex
       }
 
-      var aaaa = wordArray["table"]
+      var aaaa = wordArray[0].coordinate
       // 默认为填对了，如果有一个错误，则全部错误
       var isBingo = true
       for (var i = 0, len = aaaa.length; i < len; i++) {
@@ -479,7 +491,7 @@
         }
 
         // 开始找下一个未完成的单词
-        wordArray["table"].ok = true;
+        wordArray[0].ok = true;
 
         // wordArray["commit"][0]
       }
