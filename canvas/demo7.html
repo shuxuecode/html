@@ -36,22 +36,44 @@
     { "point": "6,7", "word": "s", "show": true }];
 
 
-    data = [{ "x": 3, "y": 0, "word": "c", "show": false }, { "x": 2, "y": 1, "word": "c", "show": true },
-    { "x": 3, "y": 1, "word": "o", "show": false }, { "x": 4, "y": 1, "word": "l", "show": false },
-    { "x": 5, "y": 1, "word": "u", "show": true }, { "x": 6, "y": 1, "word": "m", "show": false },
-    { "x": 7, "y": 1, "word": "n", "show": true }, { "x": 8, "y": 1, "word": "s", "show": true },
-    { "x": 1, "y": 2, "word": "r", "show": false }, { "x": 3, "y": 2, "word": "m", "show": true },
-    { "x": 1, "y": 3, "word": "e", "show": false }, { "x": 3, "y": 3, "word": "m", "show": true },
-    { "x": 0, "y": 4, "word": "s", "show": true }, { "x": 1, "y": 4, "word": "p", "show": false },
-    { "x": 2, "y": 4, "word": "r", "show": true }, { "x": 3, "y": 4, "word": "i", "show": false },
-    { "x": 4, "y": 4, "word": "n", "show": true }, { "x": 5, "y": 4, "word": "g", "show": true },
-    { "x": 1, "y": 5, "word": "o", "show": true }, { "x": 3, "y": 5, "word": "t", "show": false },
-    { "x": 4, "y": 5, "word": "a", "show": true }, { "x": 5, "y": 5, "word": "b", "show": false },
-    { "x": 6, "y": 5, "word": "l", "show": true }, { "x": 7, "y": 5, "word": "e", "show": true },
-    { "x": 1, "y": 6, "word": "r", "show": true }, { "x": 1, "y": 7, "word": "t", "show": true },
-    { "x": 2, "y": 7, "word": "h", "show": true }, { "x": 3, "y": 7, "word": "a", "show": false },
-    { "x": 4, "y": 7, "word": "n", "show": false }, { "x": 5, "y": 7, "word": "k", "show": false },
-    { "x": 6, "y": 7, "word": "s", "show": true }];
+    data = [
+      { "x": 3, "y": 0, "word": "c", "show": false },
+      { "x": 2, "y": 1, "word": "c", "show": true },
+      { "x": 3, "y": 1, "word": "o", "show": false },
+      { "x": 4, "y": 1, "word": "l", "show": false },
+      { "x": 5, "y": 1, "word": "u", "show": true },
+      { "x": 6, "y": 1, "word": "m", "show": false },
+      { "x": 7, "y": 1, "word": "n", "show": true },
+      { "x": 8, "y": 1, "word": "s", "show": true },
+      { "x": 1, "y": 2, "word": "r", "show": false },
+      { "x": 3, "y": 2, "word": "m", "show": true },
+      { "x": 1, "y": 3, "word": "e", "show": false },
+      { "x": 3, "y": 3, "word": "m", "show": true },
+      { "x": 0, "y": 4, "word": "s", "show": true },
+      { "x": 1, "y": 4, "word": "p", "show": false },
+      { "x": 2, "y": 4, "word": "r", "show": true },
+      { "x": 3, "y": 4, "word": "i", "show": false },
+      { "x": 4, "y": 4, "word": "n", "show": true },
+      { "x": 5, "y": 4, "word": "g", "show": true },
+      { "x": 1, "y": 5, "word": "o", "show": true },
+      { "x": 3, "y": 5, "word": "t", "show": false },
+      { "x": 4, "y": 5, "word": "a", "show": true },
+      { "x": 5, "y": 5, "word": "b", "show": false },
+      { "x": 6, "y": 5, "word": "l", "show": true },
+      { "x": 7, "y": 5, "word": "e", "show": true },
+      { "x": 1, "y": 6, "word": "r", "show": true },
+      { "x": 1, "y": 7, "word": "t", "show": true },
+      { "x": 2, "y": 7, "word": "h", "show": true },
+      { "x": 3, "y": 7, "word": "a", "show": false },
+      { "x": 4, "y": 7, "word": "n", "show": false },
+      { "x": 5, "y": 7, "word": "k", "show": false },
+      { "x": 6, "y": 7, "word": "s", "show": true }];
+
+    var wordArray =
+    {
+      "table": [{ "x": 3, "y": 5 }, { "x": 4, "y": 5 }, { "x": 5, "y": 5 }, { "x": 6, "y": 5 }, { "x": 7, "y": 5 }],
+      "commit": [{ "x": 3, "y": 0 }, { "x": 3, "y": 1 }, { "x": 3, "y": 2 }, { "x": 3, "y": 3 }, { "x": 3, "y": 4 }, { "x": 3, "y": 5 }]
+    }
 
 
     // 待选取的字母
@@ -85,8 +107,17 @@
     //     }
     //   }
     // }
-    // console.log('二维数组为：')
-    // console.log(array)
+
+    var array = []
+    for (var i = 0; i < cellNum; i++) {
+      array[i] = []
+      for (var j = 0; j < cellNum; j++) {
+        array[i][j] = {};
+      }
+    }
+
+    console.log('二维数组为：')
+    console.log(array)
 
 
     // 各种变量定义
@@ -102,6 +133,8 @@
     var cellGroup = [];
     // 选中状态的方格
     var cellGroupBack = [];
+    // 正确状态的方格
+    var cellGroupRight = [];
 
     // 显示单词的数组
     var wordGroup = [];
@@ -183,7 +216,9 @@
 
           //
           if (temp.x == x && temp.y == y) {
-
+            // 填充二维数组
+            array[x][y] = temp;
+            array[x][y].index = i;
           } else {
             continue;
           }
@@ -196,12 +231,13 @@
           }
 
           // 生成默认样式的方块
-          var cellMapData = createBitmapData(1, "#000000", show);
+          var cellMapData = createBitmapData(1, "#000000", show, "#aaaaaa");
           // 生成选中样式的方块
-          var cellBackMapData = createBitmapData(4, "#cc0000", false);
+          var cellBackMapData = createBitmapData(4, "#cc0000", false, "#aaaaaa");
+          // 生成正确样式的方块
+          var cellRightMapData = createBitmapData(4, "#000000", true, "#7DCD1E");
 
-
-
+          // 
           cellGroup[i] = game.add.sprite(startX, startY, cellMapData);
           cellGroup[i].inputEnabled = true;
 
@@ -212,6 +248,7 @@
             data: temp
           };
 
+          // 
           cellGroupBack[i] = game.add.sprite(startX, startY, cellBackMapData);
           // cellGroupBack[i].alpha = 0 // 透明度
           cellGroupBack[i].visible = false // 是否显示
@@ -223,6 +260,10 @@
             index: i,
             data: temp
           };
+
+          // 
+          cellGroupRight[i] = game.add.sprite(startX, startY, cellRightMapData)
+          cellGroupRight[i].visible = false // 是否显示
 
 
           console.log(letter)
@@ -340,19 +381,8 @@
       if (newIndex == chooseCellIndex) {
 
       } else {
-        // 原先的取消选中状态
-        // cellGroup[chooseCellIndex].alpha = 1
-        cellGroup[chooseCellIndex].visible = true
-
-        // cellGroupBack[chooseCellIndex].alpha = 0
-        cellGroupBack[chooseCellIndex].visible = false
-
-        // 这次选择的添加选中状态
-        // cellGroup[cell.data.index].alpha = 0
-        cellGroup[newIndex].visible = false
-
-        // cellGroupBack[cell.data.index].alpha = 1
-        cellGroupBack[newIndex].visible = true
+        // 修改方块的显示状态，原先的取消选中，这次选择的添加选中样式
+        updateCellVisible(newIndex, chooseCellIndex)
       }
 
       // 获取该方块是否已经有字母了，有则需要清除还原，没有则不需要操作
@@ -375,6 +405,10 @@
 
     function onDown3(letter) {
       console.log(letter)
+      // console.info(cellGroup[chooseCellIndex].data)
+      var x = cellGroup[chooseCellIndex].data.x
+      var y = cellGroup[chooseCellIndex].data.y
+      // console.info(array[x][y])
 
       var letterIndex = cellGroup[chooseCellIndex].data.letterIndex
       // 位置有字母则需要把原先的还原
@@ -393,6 +427,63 @@
       // 修改选中方块的字母下标
       cellGroup[chooseCellIndex].data.letterIndex = index
 
+
+      var oldCellIndex = array[x][y].index;
+      var nextCell = getNextCell(x, y);
+      var newCellIndex = nextCell.index;
+      if (newCellIndex != oldCellIndex) {
+        // 修改方块的显示状态，原先的取消选中，这次选择的添加选中样式
+        updateCellVisible(newCellIndex, oldCellIndex)
+        // 修改变量为最新值
+        chooseCellIndex = newCellIndex
+      }
+
+      var aaaa = wordArray["table"]
+      // 默认为填对了，如果有一个错误，则全部错误
+      var isBingo = true
+      for (var i = 0, len = aaaa.length; i < len; i++) {
+        var wordArrayX = aaaa[i].x
+        var wordArrayY = aaaa[i].y
+        // 如果为填字母方格
+        if (!array[wordArrayX][wordArrayY].show) {
+          var wordArrayIndex = array[wordArrayX][wordArrayY].index
+
+          // console.info(wordArrayIndex)
+          // console.info(cellGroup[wordArrayIndex].data.data.word)
+          // console.info(wordGroup[wordArrayIndex].text)
+          if (cellGroup[wordArrayIndex].data.data.word == wordGroup[wordArrayIndex].text) {
+            console.info(wordGroup[wordArrayIndex].text + '   字母填对了')
+          } else {
+            isBingo = false
+          }
+
+        }
+      }
+
+      if (isBingo) {
+        console.info("单词填对了")
+        for (var i = 0, len = aaaa.length; i < len; i++) {
+          var wordArrayX = aaaa[i].x
+          var wordArrayY = aaaa[i].y
+
+          var wordArrayIndex = array[wordArrayX][wordArrayY].index
+
+          console.info(cellGroup[wordArrayIndex])
+          console.info(wordGroup[wordArrayIndex])
+
+          cellGroup[wordArrayIndex].visible = false
+          cellGroupRight[wordArrayIndex].visible = true
+          wordGroup[wordArrayIndex].fill = '#fff'
+
+
+        }
+
+        // 开始找下一个未完成的单词
+        wordArray["table"].ok = true;
+
+        // wordArray["commit"][0]
+      }
+
     }
 
 
@@ -401,9 +492,10 @@
       lineWidth 线宽
       strokeStyle 边框样式
       show  是否填充
+      fillStyle 填充的颜色
     */
 
-    function createBitmapData(lineWidth, strokeStyle, show) {
+    function createBitmapData(lineWidth, strokeStyle, show, fillStyle) {
       var mapData = game.add.bitmapData(cellWidth, cellWidth);
 
       mapData.ctx.beginPath();
@@ -414,7 +506,7 @@
       // 填充
       if (show) {
         mapData.ctx.rect(lineWidth, lineWidth, cellWidth - (lineWidth * 2), cellWidth - (lineWidth * 2));
-        mapData.ctx.fillStyle = '#aaaaaa';
+        mapData.ctx.fillStyle = fillStyle
         mapData.ctx.fill();
       }
 
@@ -443,6 +535,93 @@
 
       return word;
     }
+
+    /**
+      修改方块的显示状态
+    */
+    function updateCellVisible(showIndex, hideIndex) {
+      // 原先的取消选中状态
+      // cellGroup[chooseCellIndex].alpha = 1
+      cellGroup[hideIndex].visible = true
+
+      // cellGroupBack[chooseCellIndex].alpha = 0
+      cellGroupBack[hideIndex].visible = false
+
+      // 这次选择的添加选中状态
+      // cellGroup[cell.data.index].alpha = 0
+      cellGroup[showIndex].visible = false
+
+      // cellGroupBack[cell.data.index].alpha = 1
+      cellGroupBack[showIndex].visible = true
+    }
+
+
+    function getNextCell(x, y) {
+      if (x + 1 >= cellNum) {
+        return getNextCellY(x, y)
+      }
+      if (y + 1 >= cellNum) {
+        return getNextCellX(x, y)
+      }
+      if (array[x + 1][y].word == undefined) {
+        return getNextCellY(x, y)
+      }
+      if (array[x][y + 1].word == undefined) {
+        return getNextCellX(x, y)
+      }
+      // 得到上一个选中方块的坐标 x,y
+      var cellX = cellGroup[chooseCellIndex].data.x
+      var cellY = cellGroup[chooseCellIndex].data.Y
+      // 说明x方向移动
+      if (cellX != x) {
+        return getNextCellX(x, y)
+      }
+      // 说明y方向移动
+      if (cellY != y) {
+        return getNextCellY(x, y)
+      }
+      // 最后默认按x方向移动
+      return getNextCellX(x, y)
+    }
+
+    function getNextCellX(x, y) {
+      console.info(array[x][y])
+      // 如果超过了边界，则不动
+      if (x + 1 >= cellNum) {
+        return array[x][y]
+      }
+
+      var x2 = x + 1
+      // 如果下一个方块不为空，注意数组下标越界
+      while (x2 < cellNum && array[x2][y].word != undefined) {
+        // 并且是可以选择的
+        if (array[x2][y].show == false) {
+          return array[x2][y]
+        }
+        x2++;
+      }
+      return array[x][y]
+    }
+
+    function getNextCellY(x, y) {
+      console.info(array[x][y])
+      // 如果超过了边界，则不动
+      if (y + 1 >= cellNum) {
+        return array[x][y]
+      }
+
+      var y2 = y + 1
+      // 如果下一个方块不为空，注意数组下标越界
+      while (y2 < cellNum && array[x][y2].word != undefined) {
+        // 并且是可以选择的
+        if (array[x][y2].show == false) {
+          return array[x][y2]
+        }
+        y2++;
+      }
+      return array[x][y]
+    }
+
 
 
   </script>
