@@ -64,6 +64,12 @@ function showGifLink(){
 							this.innerHTML = '复制成功';
 						}
 
+						var openBtn = document.createElement("a");
+						openBtn.innerHTML = 'open';
+						// 新标签页打开
+						openBtn.href='javascript:window.open("'+url+'")'
+						openBtn.style='border: 1px solid red; padding: 2px; margin-left: 10px;'
+
 						// aaa.setAttribute("style", 'display: inline-block; font-size:16px; border: 1px solid; padding: 10px; margin: 8px; background-color: ' + color + ';');
 					
 						var p = document.createElement('p');
@@ -72,6 +78,7 @@ function showGifLink(){
 						parentNode.appendChild(p);
 						parentNode.appendChild(textarea);
 						parentNode.appendChild(btn);
+						parentNode.appendChild(openBtn);
 					}
 					// 避免多个图片产生重复的信息
 					parentNode.setAttribute('get-gif-img-url', '0');
