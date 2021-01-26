@@ -1,0 +1,137 @@
+<html>
+
+<head>
+    <title>jsonToCsv</title>
+    <meta charset="utf-8" />
+    <style>
+        * {
+            margin: auto;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: rgb(245, 245, 245);
+        }
+
+        .main {
+            width: 80%;
+            height: 60%;
+            border: 1px solid;
+            margin-top: 2%;
+        }
+
+        .ta {
+            width: 100%;
+            height: 100%;
+            font-size: 16px;
+        }
+
+        button {
+            width: 200px;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+        <textarea class="ta" id="text"></textarea>
+        <input id="filename" placeholder="请输入文件名，默认为当前时间戳" />
+        <button onclick="download()">下载</button>
+    </div>
+
+    <script>
+
+        function download() {
+            var text = document.getElementById("text").value
+            if (text && text.length > 0) {
+                var json = JSON.parse(text)
+                console.info(json)
+                downloadCsv(json, document.getElementById("filename").value)
+            } else {
+                console.error("无内容")
+            }
+        }
+
+        function downloadCsv(json, name) {
+            name = name || (new Date().getTime() + "")
+            console.info("filename = ", name)
+            // 获取标题
+            var title = new Set()
+            for (var i = 0, len = json.length; i < len; i++) {
+                for (const key in json[i]) {
+                    title.add(key)
+                }
+            }
+
+            console.info("标题列表：", title)
+
+            var data = []
+            getData(json, data, title)
+
+            console.info("数据集合：", data)
+
+            var dataStr = createCsv(data, title)
+
+            console.info("数据字符串：", dataStr)
+
+            // 指出 \ufeff是BOM头，可以让excel等识别出csv文件的编码
+            var uri = 'data:text/csv;charset=utf-8,\ufeff' + encodeURIComponent(dataStr)
+
+            var a = document.createElement("a");
+            a.href = uri
+            a.download = (name + ".csv") || "temp.csv"
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+        }
+
+
+        function createCsv(data, title) {
+            var titleArr = []
+            for (var key of title) {
+                titleArr.push(key)
+            }
+            var str = ""
+            str += titleArr.join(",")
+            str += "\n"
+
+            for (let i = 0, len = data.length; i < len; i++) {
+                str += data[i].join(",")
+                str += "\n"
+            }
+            return str;
+        }
+
+
+
+        // 获取数据
+        function getData(json, data, title) {
+            for (var i = 0, len = json.length; i < len; i++) {
+                var d = json[i]
+                var row = []
+
+                title.forEach(element => {
+                    var dd = d[element]
+
+                    if (dd) {
+                        if (typeof dd == 'object') {
+                            row.push(JSON.stringify(dd))
+                        } else {
+                            row.push(dd)
+                        }
+                    } else {
+                        row.push("")
+                    }
+                });
+
+                data.push(row)
+            }
+        }
+
+    </script>
+</body>
+
+</html>
