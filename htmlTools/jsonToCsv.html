@@ -99,6 +99,7 @@
             str += "\n"
 
             for (let i = 0, len = data.length; i < len; i++) {
+                console.log(data[i])
                 str += data[i].join(",")
                 str += "\n"
             }
@@ -118,9 +119,11 @@
 
                     if (dd) {
                         if (typeof dd == 'object') {
-                            row.push(JSON.stringify(dd))
+                            // row.push(JSON.stringify(dd))
+                            row.push('"' + JSON.stringify(dd) + '"')
                         } else {
-                            row.push(dd)
+                            // row.push(dd)
+                            row.push('"' + dd + '"') // 解决数据中包含逗号的问题
                         }
                     } else {
                         row.push("")
