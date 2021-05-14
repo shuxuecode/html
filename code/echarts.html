@@ -4,12 +4,14 @@
 <head>
     <meta charset="utf-8">
     <!-- 引入 ECharts 文件 -->
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.1/dist/echarts.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/echarts@5.1.1/dist/echarts.min.js"></script> -->
+    <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
 </head>
 
 <body>
     <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
     <div id="main" style="width: 600px;height:400px;"></div>
+    <div id="main2" style="width: 600px;height:400px;"></div>
 
     <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
@@ -81,12 +83,59 @@
                         focus: 'series'
                     },
                     data: [1, 2, 4]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main2'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['aaa', 'bbb', 'ccc']
+            },
+            xAxis: {
+                data: ["5月", "6月", "7月"]
+            },
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '总人数'
+                }
+            ],
+            // dataZoom: [{
+            //     type: 'slider',
+            //     start: 50,
+            //     end: 100,
+            //     minSpan: 30,
+            //     maxSpan: 80
+            // }],
+            series: [
+                {
+                    name: 'aaa',
+                    type: 'line',
+                    data: [11, 22, 25]
                 },
                 {
-                    name: '总人数',
+                    name: 'bbb',
                     type: 'line',
-                    yAxisIndex: 1,
-                    data: [11, 22, 25]
+                    data: [11, 33, 25]
+                },{
+                    name: 'ccc',
+                    type: 'line',
+                    data: [11, 55, 25]
                 }
             ]
         };
