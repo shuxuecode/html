@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "name": "书签同步",
+    "version": "1.0",
+    "description": "这是一个操作书签的demo",
+    "icons": {
+        "48": "icons/icons.png",
+        "96": "icons/icons.png"
+    },
+    "permissions": [
+        "bookmarks"
+    ],
+    "browser_action": {
+        "default_icon": "icons/icon.png",
+        "default_title": "书签",
+        "default_popup": "popup/index.html"
+    },
+    "background": {
+        "scripts": [
+            "background-script.js"
+        ]
+    }
+}
