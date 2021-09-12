@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <title>demo</title>
+    <meta charset="utf-8" />
+
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+</head>
+
+<body onload="search()">
+
+    <input type="text" id="txt"/>
+
+    <br>
+
+    <pre id="">
+
+    </pre>
+
+    <code>
+        wd：搜索关键字
+        cb：callback 回调函数
+        
+    </code>
+
+
+</body>
+<script type="text/javascript">
+
+    
+
+    function search(){
+        var datas = {
+            "wd": "zsx",
+            "p": 3,
+            "cb": "cb",
+            "t": new Date().getTime()
+        }
+        $.ajax({
+            async: false,
+            url: "http://suggestion.baidu.com/su",
+            type: "GET",
+            dataType: "jsonp",
+            jsonp: "myCallback",
+            data: datas,
+            timeout: 5000,
+            success: function(res){
+                console.info(res)
+            },
+            error: function(xhr){
+                console.error(xhr)
+            }
+        });
+    }
+
+    window.cb = function(data){
+        console.log(data)
+    }
+</script>
+
+</html>
