@@ -46,6 +46,38 @@ npm run build
 
 
 
+---
+
+## 安装element-plus
+```
+# NPM
+$ npm install element-plus --save
+```
+
+在main.js加入下面代码
+```
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+
+.use(ElementPlus)
+```
+
+
+
+## 集成Axios
+
+npm install axios
+
+
+引入 import axios from "axios";
+
+
+axios.get("http://shuxuecode.github.io/html/data/list.json")
+.then((res) => {
+    console.log(res)
+    console.log(res.data)
+})
+
 
 ---
 
