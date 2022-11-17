@@ -16,6 +16,7 @@
 // @grant        GM_getResourceURL
 // @grant        GM_setValue
 // @grant        GM_getValue
+// @grant        GM_log
 // ==/UserScript==
 
 (function () {
@@ -24,100 +25,39 @@
     // Your code here...
     var handleWBFeedDetail = function (_this) {
 
-        var $li = $(_this)
 
-        // console.log($li)
+    }
 
-        // 根据当前节点找到父节点，然后获取父节点的兄弟节点，再查找是否有video元素
-        var $WB_feed_detail = $li.parents(".WB_feed_handle").prev()
-        var videoDiv = $WB_feed_detail.find(".WB_video,.WB_video_a,.li_story,.WB_video_h5_v2 .WB_feed_spec_pic")
-        console.log(videoDiv)
-        if (videoDiv.length > 0) {
-            const video_sources = videoDiv.attr("video-sources");
-            // const action_data = videoDiv.attr("action-data");
-            console.log(video_sources)
+    // GM_notification({
+    //     title:"通知标题",
+    //     text: "neir内容",
+    //     timeout: 2000
+    // })
 
-            // 多清晰度源
-            const sources = video_sources.split("&");
+    var initProgressDiv = function(){
+        // 尝试获取进度条
+        let $progress = $("body").find('progress')
 
-            console.log(sources)
+        // 进度条不存在时，生成一个
+        if ($progress.length === 0) {
+            var div = '<div style=" height: 50px; width: 200px; border: 2px solid #ddd; z-index: 9999999999999; position: fixed; top: 10px; right: 10px; background-color: antiquewhite;">'
+            
+            div += '<progress max="1" style="margin-left:10px;" />'
 
-            // 尝试从 quality_label_list 中，获取视频地址
-            const sources_filter = sources.filter(it => it.trim().indexOf("quality_label_list") == 0);
+            div += '</div>'
 
-            console.log(sources_filter)
-
-            if (sources_filter != null && sources_filter.length > 0) {
-                const quality_label_list = sources_filter[0].trim();
-
-                // 解码
-                const source = decodeURIComponent(quality_label_list);
-
-                const json = source.substring(source.indexOf("=") + 1).trim();
-
-                console.warn(json)
-
-                // 存在质量列表的值
-                if (json.length > 0) {
-
-                    const $urls = JSON.parse(json);
-
-                    // 逐步下调清晰度，当前用户为未登录或非vip时，1080P+的地址为空
-                    for (let i = 0; i < $urls.length; i++) {
-
-                        const $url = $urls[i];
-
-                        const src = $url.url.trim();
-
-                        console.info(src)
-
-                        // 是一个链接
-                        if (src.indexOf("http") == 0) {
-
-                            //     Core.log(`得到一个有效链接，${$url.quality_label}：${src}`);
-
-                            $li.parents('.WB_handle').append('<mark>' + src + '</mark>')
-
-                            GM_download({
-                                url: src,
-                                name: 'test',
-                                onprogress: function(p) {
-                    
-                                    // const value = p.loaded / p.total;
-                                    // progress.value = value;
-                                },
-                                onerror: function(e) {
-                    
-                                    console.error(e);
-                    
-                                    // Tip.error("视频下载出错！");
-                                }
-                            });
-
-                            break;
-                        }
-                    }
-
-                }
-
-            }
+            $("body").prepend(div)
         }
-
-
-
-
-
-        // var list = $('.WB_feed_detail')
-        // console.log(list)
-        // console.log($(list[0]))
-        // var a = $(list[0]).find(".WB_video,.WB_video_a,.WB_video_h5_v2")
-        // console.log(a)
-        // console.log(a.attr("video-sources"))
-
+        
+        $progress = $("body").find('progress')
+        $progress[0].value = 0;
+        
     }
 
 
     var handleFeedBody = function(_this){
+        initProgressDiv();
+
         // console.warn(_this)
         var btn = _this.currentTarget
         btn = $(btn)
@@ -130,9 +70,37 @@
                 var src = v.attr("src")
                 console.log(src)
                 src = "http:" + src
-                btn.parents('footer').children().append('<mark>获取视频地址成功</mark>')
 
-                GM_setClipboard(src)
+                const a = $('<div>下载视频</div>');
+                // const $li = $(`<div class="woo-box-item-flex"><button class="woo-like-main"><span class="woo-like-count">解析</span></button></div>`);
+                
+                a.click(function(){
+                    GM_download({
+                        url: src,
+                        name: "视频.mp4",
+                        onprogress: function(p) {
+            
+                            const value = p.loaded / p.total;
+                            // progress.value = value;
+                            $("body").find('progress')[0].value = value
+                            console.warn(value)
+                            if (value == 1) {
+                                
+                            }
+                        },
+                        onerror: function(e) {
+            
+                            console.error(e);
+            
+                            // Tip.error("视频下载出错！");
+                        }
+                    });
+                });
+
+                btn.parents('footer').children().append(a)
+                // btn.parents('footer').children().append('<mark>获取视频地址成功</mark>')
+
+                // GM_setClipboard(src)
             }
         }
         
@@ -155,7 +123,7 @@
                 // 如果已经初始化则跳过
                 continue;
             }
-            const $li = $(`<div class="woo-box-item-flex"><button>123</button></div>`);
+            const $li = $(`<div class="woo-box-item-flex"><button class="woo-like-main"><span class="woo-like-count">解析</span></button></div>`);
 
             $li.click(handleFeedBody);
 
@@ -176,10 +144,3 @@
     setTimeout(initBtn, 10000);
     setTimeout(initBtn, 15000);
 })();
-
-
-
-http:undefined
-
-http:undefined
-
