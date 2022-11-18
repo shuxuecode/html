@@ -61,6 +61,9 @@
         // console.warn(_this)
         var btn = _this.currentTarget
         btn = $(btn)
+
+        console.log(btn.parent())
+
         var feedBody = btn.parents("footer").prev()
         // console.info(feedBody)
         var videoDiv = feedBody.find(".wbp-video")
@@ -71,8 +74,8 @@
                 console.log(src)
                 src = "http:" + src
 
-                const a = $('<div>下载视频</div>');
-                // const $li = $(`<div class="woo-box-item-flex"><button class="woo-like-main"><span class="woo-like-count">解析</span></button></div>`);
+                // const a = $('<div>下载视频</div>');
+                const a = $(`<button class="woo-like-main"><span class="woo-like-count">下载视频</span></button>`);
                 
                 a.click(function(){
                     GM_download({
@@ -97,7 +100,8 @@
                     });
                 });
 
-                btn.parents('footer').children().append(a)
+                // btn.parents('footer').children().append(a)
+                btn.parent().append(a)
                 // btn.parents('footer').children().append('<mark>获取视频地址成功</mark>')
 
                 // GM_setClipboard(src)
@@ -123,9 +127,17 @@
                 // 如果已经初始化则跳过
                 continue;
             }
-            const $li = $(`<div class="woo-box-item-flex"><button class="woo-like-main"><span class="woo-like-count">解析</span></button></div>`);
 
-            $li.click(handleFeedBody);
+            const $btn = $('<button class="woo-like-main"><span class="woo-like-count">解析</span></button>')
+            $btn.click(handleFeedBody);
+
+            const $li = $(`<div class="woo-box-item-flex">`
+                // + `<button class="woo-like-main"><span class="woo-like-count">解析</span></button>`
+                // + `<button class="woo-like-main"><span class="woo-like-count">解析2</span></button>`
+                // + `<button class="woo-like-main"><span class="woo-like-count">解析3</span></button>`
+                + `</div>`);
+
+            $li.append($btn)
 
             boxFlex.append($li);
 
