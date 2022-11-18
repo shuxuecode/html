@@ -42,6 +42,7 @@
         if ($progress.length === 0) {
             var div = '<div style=" height: 50px; width: 200px; border: 2px solid #ddd; z-index: 9999999999999; position: fixed; top: 10px; right: 10px; background-color: antiquewhite;">'
             
+            div += '<div class="notification" style="">123</div>'
             div += '<progress max="1" style="margin-left:10px;" />'
 
             div += '</div>'
@@ -69,7 +70,8 @@
         var videoDiv = feedBody.find(".wbp-video")
         if(videoDiv){
             var v = videoDiv.find("video")
-            if(v){
+            if(v && v.length){
+                $("body").find('.notification').html("解析视频成功")
                 var src = v.attr("src")
                 console.log(src)
                 src = "http:" + src
