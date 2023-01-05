@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         微博视频下载
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      2.0
 // @description  try to take over the world!
 // @author       You
 // @match        https://weibo.com/*
@@ -144,8 +144,11 @@
         // 获取主题内容
         var feedBody = $footer.prev()
         var videoDiv = feedBody.find(".wbp-video")
+        var posterDiv = feedBody.find(".wbpv-poster")
+        
         // 获取视频元素
-        if (videoDiv && videoDiv.length) {
+        if ((videoDiv && videoDiv.length) || (posterDiv && posterDiv.length)) {
+            console.log('feedBody ', feedBody)
             var v = videoDiv.find("video")
             if (v && v.length) {
                 // 解析视频地址
@@ -184,7 +187,7 @@
                 $footer.children().append($btn)
             }
         } else {
-            console.log('videoDiv ', feedBody)
+            console.error('feedBody ', feedBody)
             const $btn = $('<div class="woo-box-item-flex"><button class="woo-like-main"><span class="woo-like-count">不是视频1</span></button></div>')
             $footer.children().append($btn)
         }
@@ -225,8 +228,8 @@
 
 
     // setInterval(btn, 5000);
-    setTimeout(initVideoBtn, 2000);
-    setTimeout(initVideoBtn, 5000);
-    setTimeout(initVideoBtn, 10000);
+    // setTimeout(initVideoBtn, 2000);
+    // setTimeout(initVideoBtn, 5000);
+    // setTimeout(initVideoBtn, 10000);
     setTimeout(initVideoBtn, 15000);
 })();
