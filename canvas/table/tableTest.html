@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>123</title>
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="myCanvas"></canvas>
+
+  <script type="text/javascript">
+
+    // onload();
+
+    function onload() {
+      var canvas = document.querySelector('#myCanvas');
+      var ctx = canvas.getContext('2d');
+      canvas.width = 600;
+      canvas.height = 600;
+      canvas.style.border = '1px solid green';
+      var rectH = 10;
+      var rectW = 20;
+      ctx.lineWidth = .5;
+      //绘制表格
+      // 第一步： 绘制横线
+      for (var i = 0; i < canvas.width; i++) {
+        ctx.moveTo(rectW * i, 0);
+        //如果不设置moveTo，当前画笔没有位置
+        ctx.lineTo(rectW * i, canvas.height);
+      }
+      //第二步：绘制竖线：如果绘制的格子的宽高相等，可以将for循环放到一个里面；
+      // for (var i = 0; i < canvas.height; i++) {
+      //   ctx.moveTo(0, rectH * i);
+      //   ctx.lineTo(canvas.width, rectH * i);
+      // }
+      ctx.stroke();
+    }
+
+    test();
+
+    function test() {
+      var canvas = document.querySelector('#myCanvas');
+      var ctx = canvas.getContext('2d');
+      canvas.width = 600;
+      canvas.height = 600;
+      canvas.style.border = '1px solid red';
+
+      // ctx.lineWidth = 1;
+      //绘制表格
+      // 第一步： 绘制横线
+      // for (var i = 0; i < canvas.width; i++) {
+      //   ctx.moveTo(rectW * i, 0);
+      //   //如果不设置moveTo，当前画笔没有位置
+      //   ctx.lineTo(rectW * i, canvas.height);
+      // }
+      //第二步：绘制竖线：如果绘制的格子的宽高相等，可以将for循环放到一个里面；
+      // for (var i = 0; i < canvas.height; i++) {
+      //   ctx.moveTo(0, rectH * i);
+      //   ctx.lineTo(canvas.width, rectH * i);
+      // }
+
+      // 绘制第一个单元格
+      line(ctx, 100, 50, 200, 50)
+      line(ctx, 200, 50, 200, 100)
+      line(ctx, 200, 100, 100, 100)
+      line(ctx, 100, 100, 100, 50)
+
+
+
+      
+      ctx.font = "20px Arial"
+      ctx.fillText("中文", 100, 50)
+
+      ctx.strokeRect(200,50,300,100);
+
+      text(ctx, 50, 200, 100, 50, "中文中文中文中文中文中文中文")
+
+      ctx.stroke();
+    }
+
+    function line(ctx, startX, startY, endX, endY) {
+      ctx.beginPath()
+      ctx.moveTo(startX, startY)
+      ctx.lineTo(endX, endY)
+      ctx.lineWidth = '2px'
+      ctx.stroke()
+    }
+
+    function text(ctx, startX, startY, width, height, str) {
+      ctx.strokeRect(startX, startY, width, height)
+      ctx.font = "10px serif"
+      ctx.textAlign = "center"
+      ctx.textBaseline = "middle"
+      ctx.fillText(str, startX + (width / 2), startY + (height / 2), width)
+    }
+
+  </script>
+</body>
+
+</html>
