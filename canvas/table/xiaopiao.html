@@ -47,10 +47,10 @@
       img.src = "https://www.baidu.com/img/flexible/logo/pc/result@2.png"
 
       //待图片加载完后，将其显示在canvas上
-      img.onload = function(){
-          // var ctx = cvs.getContext('2d');
-          // ctx.drawImage(this, 0, 0);//this即是imgObj,保持图片的原始大小：470*480
-          //ctx.drawImage(this, 0, 0,1024,768);//改变图片的大小到1024*768
+      img.onload = function () {
+        // var ctx = cvs.getContext('2d');
+        // ctx.drawImage(this, 0, 0);//this即是imgObj,保持图片的原始大小：470*480
+        //ctx.drawImage(this, 0, 0,1024,768);//改变图片的大小到1024*768
       }
 
       ctx.font = "20px Arial"
@@ -60,9 +60,23 @@
       ctx.fillText("中文", 100, 150)
 
       ctx.moveTo(100, 150)
-      
+
       ctx.lineTo(200, 150)
       ctx.stroke();
+
+
+      /*
+      * font参数的值分为
+      * font-style: normal(正常), italic(斜体字), oblique(倾斜字体) 后两种在网页端一般没什么区别
+      * font-variant: normal(正常), small-caps(英文小写字母变成小的大写)
+      * font-weight: normal(正常), bold(加粗) 100-900(一般不用)
+      * font-size: 文字大小
+      * font-family: 字体样式
+      */
+      ctx.font = "oblique small-caps bold 20px Arial";
+      ctx.fillStyle = "blue";
+      ctx.fillText("Hello Canvas!", 100, 200, 200);
+
 
     }
 
@@ -97,11 +111,11 @@
 
 
 
-      
+
       ctx.font = "20px Arial"
       ctx.fillText("中文", 100, 50)
 
-      ctx.strokeRect(200,50,300,100);
+      ctx.strokeRect(200, 50, 300, 100);
 
       text(ctx, 50, 200, 100, 50, "中文中文中文中文中文中文中文")
 
