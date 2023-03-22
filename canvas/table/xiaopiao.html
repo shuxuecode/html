@@ -20,12 +20,55 @@
 
     onload();
 
+    /**
+     * shanghaiximo书法
+     * 专用票据
+     * 学生姓名
+     * 家长电话
+     * 收款方式：
+     * 课程
+     * 学费：______元
+     * 书费：______元
+     * 材料费：______元
+     * 合计金额：￥123123
+     * 金额大写：万仟佰拾元角分
+     * 校区
+     * 学校电话
+     * 教师姓名
+     * 收费时间：
+     */
     function onload() {
       var canvas = document.querySelector('#myCanvas');
       var ctx = canvas.getContext('2d');
-      canvas.width = 300;
-      canvas.height = 600;
+      canvas.width = 375;
+      canvas.height = 667;
+
+      var dpr = window.devicePixelRatio
+
+      ctx.scale(375 * dpr + 'px', 667 * dpr + 'px')
+
       canvas.style.border = '1px solid green';
+
+      ctx.font = "normal normal bold 20px Arial";
+      ctx.fillStyle = "blue";
+      ctx.fillText("shanghaiximo书法", 100, 50, 200);
+
+
+      ctx.font = "normal normal bold 20px Arial";
+      ctx.fillStyle = "#000";
+      ctx.fillText("专用票据", 100, 80, 200);
+
+      ctx.font = "14px Arial";
+      ctx.fillText("学生姓名：", 60, 105, 200);
+
+      line(ctx, 120, 110, 200, 110)
+
+
+      ctx.restore();
+    }
+
+
+    function ssss() {
       var rectH = 10;
       var rectW = 20;
       ctx.lineWidth = .5;
