@@ -40,12 +40,12 @@
     function onload() {
       var canvas = document.querySelector('#myCanvas');
       var ctx = canvas.getContext('2d');
-      canvas.width = 375;
-      canvas.height = 667;
+      canvas.width = 800;
+      canvas.height = 400;
 
       var dpr = window.devicePixelRatio
 
-      ctx.scale(375 * dpr + 'px', 667 * dpr + 'px')
+      ctx.scale(800 * dpr + 'px', 400 * dpr + 'px')
 
       canvas.style.border = '1px solid #ccc';
 
@@ -53,11 +53,18 @@
 
       ctx.font = "normal normal bold 26px KaiTi";
       // ctx.fillStyle = "blue";
-      ctx.fillText("书法", 100, 50, 200);
+      ctx.textAlign = "center"
+      ctx.fillText("上海曦墨书法", 400, 50, 200);
 
       ctx.font = "normal normal bold 22px Arial";
       ctx.fillStyle = "#000";
-      ctx.fillText("专用票据", 130, 80, 200);
+      ctx.fillText("专用票据", 400, 80, 200);
+
+      ctx.lineWidth = 2;
+      ctx.strokeRect(60, 120, 100, 40);
+
+      ctx.strokeRect(160, 120, 100, 40);
+
 
       var startX = 150;
       var startY = 150;
