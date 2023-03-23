@@ -12,8 +12,24 @@
   </style>
 </head>
 
+<!-- 
+标题 收费凭证
+
+学生姓名   xxx   家长电话   xxxx   经办时间  xxx
+
+课程        学费  书费  材料费 其它
+ xxxx      ￥    ￥    ￥    没有就为空
+合计金额  ￥  22.22
+金额大写  
+收款方式  微信收款  支付宝收款  POS机    
+备注 xxxx
+校区  xxx   学校电话  xxx  教师姓名  xxx
+打印时间  xxxx    经办人  xxx      客户签名   xxxx
+-->
+
+
 <body style="padding: 50px;">
-  
+
   <canvas id="myCanvas"></canvas>
 
   <script type="text/javascript">
@@ -50,6 +66,10 @@
       canvas.style.border = '1px solid #ccc';
 
 
+      // 先画坐标系
+      zuobiao(ctx, canvas)
+
+
 
       ctx.font = "normal normal bold 26px KaiTi";
       // ctx.fillStyle = "blue";
@@ -71,7 +91,7 @@
       var step = 35;
 
       ctx.textAlign = "end"
-      ctx.textBaseline="bottom";
+      ctx.textBaseline = "bottom";
 
       ctx.font = "16px Arial";
       ctx.fillText("学生姓名：", startX, startY, 200);
@@ -112,89 +132,57 @@
       line(ctx, startX, startY, lineStartX, startY)
       // ctx.fillText("金额大写：万仟佰拾元角分", startX, startY += step, 200);
 
-      
+
       ctx.fillText("校区：", startX, startY += step, 200);
       line(ctx, startX, startY, lineStartX, startY)
-      
+
       ctx.fillText("学校电话：", startX, startY += step, 200);
       line(ctx, startX, startY, lineStartX, startY)
-      
+
       ctx.fillText("教师姓名：", startX, startY += step, 200);
       line(ctx, startX, startY, lineStartX, startY)
-      
+
       ctx.fillText("收费时间：", startX, startY += step, 200);
       line(ctx, startX, startY, lineStartX, startY)
-      
+
       // 
-    //  * 学费：______元
-    //  * 书费：______元
-    //  * 材料费：______元
+      //  * 学费：______元
+      //  * 书费：______元
+      //  * 材料费：______元
 
 
       ctx.restore();
     }
 
 
-    function ssss() {
-      var rectH = 10;
+    function zuobiao(ctx, canvas) {
+      var rectH = 20;
       var rectW = 20;
-      ctx.lineWidth = .5;
+      ctx.lineWidth = 1;
       //绘制表格
       // 第一步： 绘制横线
       for (var i = 0; i < canvas.width; i++) {
-        // ctx.moveTo(rectW * i, 0);
-        // //如果不设置moveTo，当前画笔没有位置
-        // ctx.lineTo(rectW * i, canvas.height);
+        if (i > 1) {
+          ctx.moveTo(rectW * i, 10);
+          // //如果不设置moveTo，当前画笔没有位置
+          ctx.lineTo(rectW * i, canvas.height);
+        }
+
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'top'
+        ctx.fillText(rectW * i + "", rectW * i, 0);
       }
       //第二步：绘制竖线：如果绘制的格子的宽高相等，可以将for循环放到一个里面；
-      // for (var i = 0; i < canvas.height; i++) {
-      //   ctx.moveTo(0, rectH * i);
-      //   ctx.lineTo(canvas.width, rectH * i);
-      // }
-      ctx.stroke();
-
-      var img = new Image()
-      img.src = "https://www.baidu.com/img/flexible/logo/pc/result@2.png"
-
-      //待图片加载完后，将其显示在canvas上
-      img.onload = function () {
-        // var ctx = cvs.getContext('2d');
-        // ctx.drawImage(this, 0, 0);//this即是imgObj,保持图片的原始大小：470*480
-        //ctx.drawImage(this, 0, 0,1024,768);//改变图片的大小到1024*768
+      for (var i = 0; i < canvas.height; i++) {
+        if (i > 1) {
+          ctx.moveTo(10, rectH * i);
+          ctx.lineTo(canvas.width, rectH * i);
+        }
+        ctx.textAlign = 'start'
+        ctx.textBaseline = 'middle'
+        ctx.fillText(rectH * i + "", 0, rectH*i);
       }
-
-      ctx.font = "20px Arial"
-      ctx.fillText("中文", 100, 50)
-
-      ctx.font = "bold 20px Arial"
-      ctx.fillText("中文", 100, 150)
-
-      ctx.moveTo(100, 150)
-
-      ctx.lineTo(200, 150)
       ctx.stroke();
-
-
-      /*
-      * font参数的值分为
-      * font-style: normal(正常), italic(斜体字), oblique(倾斜字体) 后两种在网页端一般没什么区别
-      * font-variant: normal(正常), small-caps(英文小写字母变成小的大写)
-      * font-weight: normal(正常), bold(加粗) 100-900(一般不用)
-      * font-size: 文字大小
-      * font-family: 字体样式
-      */
-      ctx.font = "oblique small-caps bold 20px Arial";
-      ctx.fillStyle = "blue";
-
-      // context.fillText(text,x,y,maxWidth);
-      ctx.fillText("Hello Canvas!", 100, 200, 200);
-
-
-      // textAlign文本的对齐方式
-      // 语法：ctx.textAlign = "left" || "right" || "center" || "start" || "end";
-
-      // textBaseline 文本基线，决定文字垂直方向的对齐方式。
-      // 语法：ctx.textBaseline = "top" || "hanging" || "middle" || "alphabetic" || "ideographic" || "bottom";
 
 
     }
