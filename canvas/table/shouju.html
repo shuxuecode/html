@@ -35,130 +35,132 @@
   <script type="text/javascript">
 
     onload();
-
-    /**
-     * shanghaiximo书法
-     * 专用票据
-     * 学生姓名
-     * 家长电话
-     * 收款方式：
-     * 课程
-     * 学费：______元
-     * 书费：______元
-     * 材料费：______元
-     * 合计金额：￥123123
-     * 金额大写：万仟佰拾元角分
-     * 校区
-     * 学校电话
-     * 教师姓名
-     * 收费时间：
-     */
     function onload() {
       var canvas = document.querySelector('#myCanvas');
       var ctx = canvas.getContext('2d');
-      canvas.width = 800;
-      canvas.height = 400;
+      canvas.width = 810;
+      canvas.height = 440;
 
       var dpr = window.devicePixelRatio
 
-      ctx.scale(800 * dpr + 'px', 400 * dpr + 'px')
+      // ctx.scale(800 * dpr + 'px', 400 * dpr + 'px')
 
       canvas.style.border = '1px solid #ccc';
 
 
       // 先画坐标系
-      zuobiao(ctx, canvas)
+      // zuobiao(ctx, canvas)
 
 
+      // 画框
+      ctx.lineWidth = 1.5;
+      // 大框
+      ctx.strokeRect(60, 100, 720, 320);
+      kuang(ctx)
+
+
+      // ctx.strokeRect(160, 120, 100, 40);
+
+
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
 
       ctx.font = "normal normal bold 26px KaiTi";
       // ctx.fillStyle = "blue";
       ctx.textAlign = "center"
-      ctx.fillText("上海曦墨书法", 400, 50, 200);
+      ctx.fillText("上海曦墨书法", 400, 40, 200);
 
       ctx.font = "normal normal bold 22px Arial";
       ctx.fillStyle = "#000";
-      ctx.fillText("专用票据", 400, 80, 200);
+      ctx.fillText("专用票据", 400, 75, 200);
 
-      ctx.lineWidth = 2;
-      ctx.strokeRect(60, 120, 100, 40);
+      // 绘制label
+      title(ctx, "学生姓名", 120, 120, 100)
+      title(ctx, "家长电话", 360, 120, 100)
+      title(ctx, "经办时间", 600, 120, 100)
 
-      ctx.strokeRect(160, 120, 100, 40);
+      // 第二行
+      title(ctx, "课程", 130, 160, 100)
+      title(ctx, "学费", 270, 160, 100)
+      title(ctx, "书费", 420, 160, 100)
+      title(ctx, "材料费", 560, 160, 100)
+      title(ctx, "其它", 700, 160, 100)
 
+      title(ctx, "合计金额", 150, 280, 100)
+      title(ctx, "金额大写", 510, 280, 100)
+      
+      title(ctx, "收款方式", 150, 320, 100)
+      
+      
+      title(ctx, "校区", 120, 360, 100)
+      title(ctx, "学校电话", 360, 360, 100)
+      title(ctx, "教师姓名", 600, 360, 100)
 
-      var startX = 150;
-      var startY = 150;
-      var step = 35;
-
-      ctx.textAlign = "end"
-      ctx.textBaseline = "bottom";
-
-      ctx.font = "16px Arial";
-      ctx.fillText("学生姓名：", startX, startY, 200);
-
-      var lineStartX = 240
-
-      line(ctx, startX, startY, lineStartX, startY)
-
-
-      // ctx.font = "16px Arial";
-      ctx.fillText("家长电话：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-
-      ctx.fillText("收款方式：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-
-      ctx.fillText("课程：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-
-      ctx.fillText("学费：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-      ctx.fillText("元", 260, startY, 200);
-
-      ctx.fillText("书费：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-      ctx.fillText("元", 260, startY, 200);
-
-      ctx.fillText("材料费：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-      ctx.fillText("元", 260, startY, 200);
-
-      ctx.fillText("合计金额：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-      ctx.fillText("元", 260, startY, 200);
-      // ctx.fillText("合计金额：￥123123", startX, startY += step, 200);
-
-      ctx.fillText("金额大写：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-      // ctx.fillText("金额大写：万仟佰拾元角分", startX, startY += step, 200);
-
-
-      ctx.fillText("校区：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-
-      ctx.fillText("学校电话：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-
-      ctx.fillText("教师姓名：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-
-      ctx.fillText("收费时间：", startX, startY += step, 200);
-      line(ctx, startX, startY, lineStartX, startY)
-
-      // 
-      //  * 学费：______元
-      //  * 书费：______元
-      //  * 材料费：______元
-
+      title(ctx, "打印时间", 120, 400, 100)
+      title(ctx, "经办人", 360, 400, 100)
+      title(ctx, "客户签名", 600, 400, 100)
 
       ctx.restore();
     }
 
+    function kuang(ctx) {
+      // 先画横线，6条横线
+      line(ctx, 60, 140, 780, 140)
+      line(ctx, 60, 180, 780, 180)
+      line(ctx, 60, 260, 780, 260)
+      line(ctx, 60, 300, 780, 300)
+      line(ctx, 60, 340, 780, 340)
+      line(ctx, 60, 380, 780, 380)
+
+      // 下面5个是第一行的竖线
+      line(ctx, 180, 100, 180, 140)
+      line(ctx, 300, 100, 300, 140)
+      line(ctx, 420, 100, 420, 140)
+      line(ctx, 540, 100, 540, 140)
+      line(ctx, 660, 100, 660, 140)
+
+      // 下面4个是第2行的竖线
+      line(ctx, 204, 140, 204, 260)
+      line(ctx, 348, 140, 348, 260)
+      line(ctx, 492, 140, 492, 260)
+      line(ctx, 636, 140, 636, 260)
+
+      // 下面3个是合计金额那一行的竖线
+      line(ctx, 240, 260, 240, 300)
+      line(ctx, 420, 260, 420, 300)
+      line(ctx, 600, 260, 600, 300)
+      
+      // 收款方式那一行
+      line(ctx, 240, 300, 240, 340)
+
+      // 下面5个是倒数第一、二行的竖线
+      line(ctx, 180, 340, 180, 420)
+      line(ctx, 300, 340, 300, 420)
+      line(ctx, 420, 340, 420, 420)
+      line(ctx, 540, 340, 540, 420)
+      line(ctx, 660, 340, 660, 420)
+    }
+
+    function line(ctx, startX, startY, endX, endY) {
+      ctx.beginPath()
+      ctx.moveTo(startX, startY)
+      ctx.lineTo(endX, endY)
+      // ctx.lineWidth = '2px'
+      ctx.stroke()
+    }
+
+    function title(ctx, text, x, y, width){
+      ctx.font = "bold 16px Arial";
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillText(text, x, y, width);
+    }
+
 
     function zuobiao(ctx, canvas) {
-      var rectH = 20;
-      var rectW = 20;
-      ctx.lineWidth = 1;
+      var rectH = 10;
+      var rectW = 10;
+      ctx.lineWidth = .1;
       //绘制表格
       // 第一步： 绘制横线
       for (var i = 0; i < canvas.width; i++) {
@@ -170,7 +172,9 @@
 
         ctx.textAlign = 'center'
         ctx.textBaseline = 'top'
-        ctx.fillText(rectW * i + "", rectW * i, 0);
+        if (i % 2 == 0) {
+          ctx.fillText(rectW * i + "", rectW * i, 0);
+        }
       }
       //第二步：绘制竖线：如果绘制的格子的宽高相等，可以将for循环放到一个里面；
       for (var i = 0; i < canvas.height; i++) {
@@ -180,7 +184,10 @@
         }
         ctx.textAlign = 'start'
         ctx.textBaseline = 'middle'
-        ctx.fillText(rectH * i + "", 0, rectH*i);
+        if (i % 2 == 0) {
+          ctx.fillText(rectH * i + "", 0, rectH * i);
+        }
+
       }
       ctx.stroke();
 
@@ -229,13 +236,7 @@
       ctx.stroke();
     }
 
-    function line(ctx, startX, startY, endX, endY) {
-      // ctx.beginPath()
-      // ctx.moveTo(startX, startY)
-      // ctx.lineTo(endX, endY)
-      // ctx.lineWidth = '2px'
-      // ctx.stroke()
-    }
+
 
     function text(ctx, startX, startY, width, height, str) {
       ctx.strokeRect(startX, startY, width, height)
