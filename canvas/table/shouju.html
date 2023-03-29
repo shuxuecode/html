@@ -49,7 +49,7 @@
 
 
       // 先画坐标系
-      // zuobiao(ctx, canvas)
+      zuobiao(ctx, canvas)
 
 
       // 画框
@@ -88,16 +88,37 @@
       title(ctx, "合计金额", 150, 280, 100)
       title(ctx, "金额大写", 510, 280, 100)
       
-      title(ctx, "收款方式", 150, 320, 100)
+      title(ctx, "备注", 150, 320, 100)
       
-      
-      title(ctx, "校区", 120, 360, 100)
-      title(ctx, "学校电话", 360, 360, 100)
+      title(ctx, "校区", 105, 360, 100)
+      title(ctx, "收款方式", 365, 360, 100)
       title(ctx, "教师姓名", 600, 360, 100)
 
-      title(ctx, "打印时间", 120, 400, 100)
-      title(ctx, "经办人", 360, 400, 100)
+      title(ctx, "打印时间", 105, 400, 100)
+      title(ctx, "经办人", 365, 400, 100)
       title(ctx, "客户签名", 600, 400, 100)
+
+      // ctx.restore();
+
+      var data = {
+        studentName: "张三",
+        handleTime: "2023-01-01",
+        parentMobile: "188xxxx",
+        operator: "测试人",
+        paymentType: "微信",
+        remark: "备注",
+        className: "一二三四五六七八九十一二三四五六七八九十",
+        tuitionFee: "100",
+        bookFee: "200",
+        textbookFee: "0",
+        otherFee: "10",
+        totalAmount: "200",
+        amountInWords: "贰佰整",
+        schoolName: "学校",
+        teacherName: "教师",
+        printTime: "2023-01-01 12:12",
+      }
+      tianru(ctx, data)
 
       ctx.restore();
     }
@@ -133,8 +154,8 @@
       line(ctx, 240, 300, 240, 340)
 
       // 下面5个是倒数第一、二行的竖线
-      line(ctx, 180, 340, 180, 420)
-      line(ctx, 300, 340, 300, 420)
+      line(ctx, 150, 340, 150, 420)
+      line(ctx, 315, 340, 315, 420)
       line(ctx, 420, 340, 420, 420)
       line(ctx, 540, 340, 540, 420)
       line(ctx, 660, 340, 660, 420)
@@ -150,6 +171,13 @@
 
     function title(ctx, text, x, y, width){
       ctx.font = "bold 16px Arial";
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillText(text, x, y, width);
+    }
+
+    function content(ctx, text, x, y, width){
+      ctx.font = "16px Arial";
       ctx.textAlign = 'center'
       ctx.textBaseline = 'middle'
       ctx.fillText(text, x, y, width);
@@ -193,57 +221,61 @@
 
     }
 
-    // test();
+    function tianru(ctx, data){
+      
+      content(ctx, data.studentName, 240, 120, 100)
+      content(ctx, data.parentMobile, 480, 120, 100)
+      content(ctx, data.handleTime, 720, 120, 100)
 
-    function test() {
-      var canvas = document.querySelector('#myCanvas');
-      var ctx = canvas.getContext('2d');
-      canvas.width = 600;
-      canvas.height = 600;
-      canvas.style.border = '1px solid red';
+      // 特殊处理
+      lontText(ctx, data)
 
-      // ctx.lineWidth = 1;
-      //绘制表格
-      // 第一步： 绘制横线
-      // for (var i = 0; i < canvas.width; i++) {
-      //   ctx.moveTo(rectW * i, 0);
-      //   //如果不设置moveTo，当前画笔没有位置
-      //   ctx.lineTo(rectW * i, canvas.height);
-      // }
-      //第二步：绘制竖线：如果绘制的格子的宽高相等，可以将for循环放到一个里面；
-      // for (var i = 0; i < canvas.height; i++) {
-      //   ctx.moveTo(0, rectH * i);
-      //   ctx.lineTo(canvas.width, rectH * i);
-      // }
+      content(ctx, data.tuitionFee, 270, 220, 100)
+      content(ctx, data.bookFee, 420, 220, 100)
+      content(ctx, data.textbookFee, 560, 220, 100)
+      content(ctx, data.otherFee, 700, 220, 100)
 
-      // 绘制第一个单元格
-      line(ctx, 100, 50, 200, 50)
-      line(ctx, 200, 50, 200, 100)
-      line(ctx, 200, 100, 100, 100)
-      line(ctx, 100, 100, 100, 50)
+      content(ctx, data.totalAmount, 330, 280, 100)
+      content(ctx, data.amountInWords, 690, 280, 100)
+      // 从头开始
+      ctx.font = "16px Arial";
+      ctx.textAlign = 'start'
+      ctx.textBaseline = 'middle'
+      ctx.fillText(data.remark, 260, 320, 400);
 
+      content(ctx, data.schoolName, 230, 360, 100)
+      content(ctx, data.paymentType, 480, 360, 100)
+      content(ctx, data.teacherName, 720, 360, 100)
+      
+      content(ctx, data.printTime, 230, 400, 200)
+      content(ctx, data.operator, 480, 400, 100)
 
+    }
 
+    function lontText(ctx, data){
+        var str = data.className;
+        str = "一二三四五六七七七七七七七七七七七七"
+        var len = str.length // 字符串长度
+        var size = 7; // 每行显示6个字符
+        var line = len / size;
+        var y = line > 2 ? 180 : line > 1 ? 190 : 200;
+        for(var i=0, len=str.length; i<len; i+=size){
+          ctx.font = "16px Arial";
+          ctx.textAlign = 'center'
+          ctx.textBaseline = 'middle'
+          ctx.fillText(str.substr(i, size), 130, y+=20, 400);
+        }
 
-      ctx.font = "20px Arial"
-      ctx.fillText("中文", 100, 50)
-
-      ctx.strokeRect(200, 50, 300, 100);
-
-      text(ctx, 50, 200, 100, 50, "中文中文中文中文中文中文中文")
-
-      ctx.stroke();
     }
 
 
-
-    function text(ctx, startX, startY, width, height, str) {
-      ctx.strokeRect(startX, startY, width, height)
-      ctx.font = "10px serif"
-      ctx.textAlign = "center"
-      ctx.textBaseline = "middle"
-      ctx.fillText(str, startX + (width / 2), startY + (height / 2), width)
-    }
+    // function text(ctx, startX, startY, width, height, str) {
+    //   ctx.strokeRect(startX, startY, width, height)
+    //   ctx.font = "10px serif"
+    //   ctx.textAlign = "center"
+    //   ctx.textBaseline = "middle"
+    //   ctx.fillText(str, startX + (width / 2), startY + (height / 2), width)
+    // }
 
   </script>
 </body>
