@@ -321,21 +321,4 @@ var selects = $('#table').bootstrapTable('getSelections');
 
 
 
-
--
--
--
--
---
--
---
--
---
--
--
--
--
--
--
-
 ----------------------
