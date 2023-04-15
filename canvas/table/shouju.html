@@ -86,7 +86,7 @@
       title(ctx, "其它", 700, 160, 100)
 
       title(ctx, "合计金额", 150, 280, 100)
-      title(ctx, "金额大写", 510, 280, 100)
+      title(ctx, "金额大写", 500, 280, 100)
       
       title(ctx, "备注", 150, 320, 100)
       
@@ -148,10 +148,11 @@
       // 下面3个是合计金额那一行的竖线
       line(ctx, 240, 260, 240, 300)
       line(ctx, 420, 260, 420, 300)
-      line(ctx, 600, 260, 600, 300)
+      line(ctx, 580, 260, 580, 300)
       
       // 收款方式那一行
       line(ctx, 240, 300, 240, 340)
+      line(ctx, 490, 300, 490, 340)
 
       // 下面5个是倒数第一、二行的竖线
       line(ctx, 150, 340, 150, 420)
@@ -236,7 +237,7 @@
       content(ctx, data.otherFee, 700, 220, 100)
 
       content(ctx, data.totalAmount, 330, 280, 100)
-      content(ctx, data.amountInWords, 690, 280, 100)
+      content(ctx, data.amountInWords, 680, 280, 100)
       // 从头开始
       ctx.font = "16px Arial";
       ctx.textAlign = 'start'

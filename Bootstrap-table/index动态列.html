@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>DEMO</title>
+  <meta charset="utf-8">
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+  <table id="table"></table>
+
+
+  <button onclick="test1()">test1</button>
+  <br/>
+  <button onclick="test2()">test2</button>
+
+
+  <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+  <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+
+  <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+
+  <script>
+    $(function () {
+
+
+
+
+
+    });
+
+    function test1() {
+      var list = [
+        {
+          "id": 1,
+          "name": "测试姓名1",
+          "age": 0
+        },
+        {
+          "id": 2,
+          "name": "测试姓名2",
+          "age": 1
+        }
+      ]
+
+      var columns = [{
+        checkbox: true,
+        align: 'center'
+      },
+      {
+        field: 'name',
+        title: '姓名',
+        align: 'center',
+        valign: 'middle'
+      },
+      {
+        field: 'age',
+        title: '性别',
+        align: 'center',
+        valign: 'middle',
+        formatter: function (value, row, index) {
+          var text = '-';
+          if (value == 1) {
+            text = "男";
+          } else if (value == 0) {
+            text = "女";
+          }
+          return text;
+        }
+      },
+      {
+        field: 'id',
+        title: '操作',
+        align: 'center',
+        valign: 'middle',
+        formatter: function (value, row, index) {
+          return '<button class="btn btn-primary btn-sm">编辑</button>';
+        }
+      }
+      ]
+
+      loadTable(list, columns)
+    }
+
+    function test2() {
+      var list = [
+        {
+          "id": 1,
+          "class": "课程1"
+        },
+        {
+          "id": 2,
+          "class": "课程2"
+        }
+      ]
+
+      var columns = [
+        {
+          field: 'id',
+          title: '主键',
+          align: 'center',
+          valign: 'middle'
+        },
+        {
+          field: 'class',
+          title: '课程',
+          align: 'center',
+          valign: 'middle'
+        },
+        {
+          field: 'id',
+          title: '操作',
+          align: 'center',
+          valign: 'middle',
+          formatter: function (value, row, index) {
+            return '<button class="btn btn-primary btn-sm">编辑</button>';
+          }
+        }
+      ]
+
+      loadTable(list, columns)
+    }
+
+    function loadTable(list, columns) {
+
+
+      $('#table').bootstrapTable("destroy");
+      $("#table").bootstrapTable({
+        sidePagination: 'client', //设置为客户端端
+        data: list,
+        detailView: true, // 视图模式
+        pagination: true,
+        pageList: [10, 20],
+        pageSize: 10,
+        pageNumber: 1,
+        sortName: 'id',
+        sortOrder: 'desc',
+        clickToSelect: true,
+        columns: columns, // 
+        onLoadSuccess: function () { //加载成功时执行
+          console.info("加载成功");
+        },
+        onLoadError: function () { //加载失败时执行
+          console.info("加载数据失败");
+        },
+        //
+
+      });
+
+    }
+  </script>
+</body>
+
+</html>
