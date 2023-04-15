@@ -107,6 +107,7 @@
         operator: "测试人",
         paymentType: "微信",
         remark: "备注",
+        note: "自定义内容5自定义内容5自定",
         className: "一二三四五六七八九十一二三四五六七八九十",
         tuitionFee: "100",
         bookFee: "200",
@@ -242,7 +243,9 @@
       ctx.font = "16px Arial";
       ctx.textAlign = 'start'
       ctx.textBaseline = 'middle'
-      ctx.fillText(data.remark, 260, 320, 400);
+      ctx.fillText(data.remark, 260, 320, 220);
+      
+      content(ctx, data.note, 635, 320, 280);
 
       content(ctx, data.schoolName, 230, 360, 100)
       content(ctx, data.paymentType, 480, 360, 100)
