@@ -36,6 +36,20 @@ connection.query(addSql, addSqlParams, function(err, result) {
     console.log('INSERT ID:',result);    
 });
 
+
+
+
+var delSql = "delete from x_user where id = ?"
+var delSqlParams = [11]
+
+connection.query(delSql, delSqlParams, function(err, res) {
+  if(err) {
+    console.error("del error ", err)
+    return
+  }
+  console.log("del success")
+})
+
+
+
 connection.end();
-
-
