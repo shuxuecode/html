@@ -1,0 +1,49 @@
+<html>
+
+<head>
+
+    <style>
+        #canvas {
+            /* 添加边框以更好地看到canvas内容   */
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <video id="myVideo" controls>
+        <source src="1.mp4" type="video/mp4">
+    </video>
+
+    <script>
+        var video = document.getElementById("myVideo"); // 获取video元素
+        var canvas = document.getElementById('canvas'); // 创建canvas元素
+        // var canvas = document.createElement('canvas'); // 创建canvas元素
+        // document.body.appendChild(canvas); // 将canvas添加到页面中
+
+        // 当视频就绪时开始处理
+        video.addEventListener('loadeddata', function () {
+            var context = canvas.getContext('2d'); // 获取canvas的2D上下文对象
+            setInterval(function () {
+                context.drawImage(video, 0, 0, canvas.width, canvas.height); // 将视频画面绘制到canvas上
+
+                // 添加灰色颗粒效果
+                for (let i = 0; i < canvas.width * canvas.height; i++) {
+                    let x = Math.floor(Math.random() * canvas.width);
+                    let y = Math.floor(Math.random() * canvas.height);
+
+                    if ((x + y) % 2 === 0) {
+                        context.fillStyle = "gray";
+                        context.fillRect(x, y, 1, 1);
+                    } else {
+                        context.clearRect(x, y, 1, 1);
+                    }
+                }
+            }, 33); //每33ms更新一次画布（大约30fps）
+        });
+    </script>
+
+  
+</body>
+
+</html>

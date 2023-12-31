@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy NewYear 2024</title>
+    <meta charset="UTF-8" />
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> -->
+    <style>
+        /* body {
+            margin: auto;
+            text-align: center;
+        } */
+
+        html,
+        body {
+            height: 100%;
+            /* 确保页面高度为100% */
+            margin: 0;
+            /* 清除默认边距 */
+        }
+
+        .container {
+            display: flex;
+            /* 创建flex容器 */
+            align-items: center;
+            /* 水平居中 */
+            justify-content: center;
+            /* 垂直居中 */
+            min-height: 100vh;
+            /* 最小高度为视口高度（viewport） */
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="container">
+        <!-- 这里放入需要垂直居中的内容 -->
+        <video id="myVideo" style="display: none;"
+            src="https://highness-1-1253922088.cos.ap-beijing.myqcloud.com/2024/2024.mp4" autoplay loop muted webkit-playsinline playsinline></video>
+        <div>
+            <canvas id="canvas" width="100%" height="100%">您的浏览器不支持Canvas</canvas>
+        </div>
+        
+        <div class="model" >
+            <button style="font-size: 88px; background: none; border: none; display: none;">新年快乐，点击播放</button>
+        </div>
+    </div>
+
+
+    <script>
+        // 获取video元素
+        var video = document.getElementById('myVideo');
+
+        var canvas = document.getElementById('canvas');
+        // 创建canvas元素
+        // var canvas = document.createElement('canvas');
+        // document.body.appendChild(canvas);
+
+        // 设置canvas的大小与视频相同
+        // canvas.width = video.clientWidth;
+        // canvas.height = video.clientHeight;
+        canvas.width = 854;
+        canvas.height = 480;
+
+        // 在每次视频更新时将其内容复制到canvas上
+        function updateCanvas() {
+            var context = canvas.getContext('2d');
+
+            // 清空画布
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 将视频当前帧复制到canvas上
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        }
+
+        // 开始定期调用updateCanvas函数
+        setInterval(updateCanvas, 33); // 这里的参数表示每秒调用33次（1/30）
+    </script>
+
+    <script>
+        const model = document.querySelector('.model')
+        const btn = document.querySelector('button')
+
+        //第二种方法比较主流，类似的有网页版抖音以及B站
+        function play() {
+            video.muted = true;//设置视频为静音
+            video.play();//调用播放方法
+            const ctx = new AudioContext();
+            const canAutoPlay = ctx.state === 'running'; //通过这个可以判断出视频能不能够自动播放 如何可以它的值就是“running” 否则为"suspended"
+            // 如果是不能播放我们就执行下面的逻辑，其实就是类似于第一种方法，让用户与其交互
+            ctx.close();
+            if (canAutoPlay) {
+                video.muted = false;
+                model.style.display = 'none';
+                btn.removeEventListener('click', play);
+            }
+            else {
+                model.style.display = 'block';
+                btn.addEventListener('click', play);
+            }
+        }
+        play()
+    </script>
+</body>
+
+</html>
