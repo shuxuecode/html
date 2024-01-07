@@ -1,0 +1,11 @@
+{   
+  "name": "github随手记",   
+  "description": "利用github记录信息的插件",   
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "browser_action": {   
+    "default_icon": "git.ico" , 
+    "default_title": "随手记", 
+    "default_popup": "index.html"
+  }   
+} 
