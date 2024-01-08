@@ -3,9 +3,15 @@
   "description": "利用github记录信息的插件",   
   "version": "1.0.0",
   "manifest_version": 2,
+  "icons": {
+    "16": "images/icon-16.ico",
+    "48": "images/icon-48.ico",
+    "64": "images/icon-64.ico"
+  },
   "browser_action": {   
-    "default_icon": "git.ico" , 
+    "default_icon": "images/icon-64.ico" , 
     "default_title": "随手记", 
     "default_popup": "index.html"
-  }   
+  },
+  "options_page": "options.html"
 } 
