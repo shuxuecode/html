@@ -18,6 +18,10 @@ function getToken() {
     document.getElementById('token').value = token;
 }
 
+function removeToken() {
+    localStorage.removeItem('my_github_token');
+}
+
 
 
 let btn = document.getElementById('btn')
