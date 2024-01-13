@@ -4,7 +4,6 @@
 function test() {
     alert(123)
 
-    localStorage.getItem
 }
 
 function setToken() {
@@ -24,8 +23,7 @@ function removeToken() {
 
 
 
-let btn = document.getElementById('btn')
-btn.onclick = test;
+document.getElementById('btn').onclick = test;
 
 document.getElementById('updateToken').onclick = setToken;
 document.getElementById('showToken').onclick = getToken;

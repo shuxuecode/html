@@ -4,12 +4,12 @@
   "version": "1.0.0",
   "manifest_version": 2,
   "icons": {
-    "16": "images/icon-16.ico",
-    "48": "images/icon-48.ico",
-    "64": "images/icon-64.ico"
+    "16": "images/git-64.png",
+    "48": "images/git-64.png",
+    "64": "images/git-64.png"
   },
   "browser_action": {   
-    "default_icon": "images/icon-64.ico" , 
+    "default_icon": "images/git-64.png" , 
     "default_title": "随手记", 
     "default_popup": "index.html"
   },
