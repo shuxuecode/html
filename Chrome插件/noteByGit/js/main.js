@@ -69,18 +69,34 @@ var octo = undefined
 var repo = undefined
 var sha = undefined;
 
+var $token = undefined
+var $owner = undefined
+var $repo = undefined
+var $filePath = undefined
+
 
 var pullContent = function () {
-    octo = new Octokat({ token: document.getElementById('token').value })
-    repo = octo.repos(document.getElementById('owner').value, document.getElementById('repo').value)
 
-    repo.contents(document.getElementById('filePath').value).read() // Use `.read` to get the raw file.
+    $token = document.getElementById('token').value
+    $owner = document.getElementById('owner').value
+    $repo = document.getElementById('repo').value
+    $filePath = document.getElementById('filePath').value
+
+    if($token == '' || $owner == '' || $repo == '' || $filePath == '') {
+        showTitle("配置为空")
+        return
+    }
+
+    octo = new Octokat({ token: $token })
+    repo = octo.repos($owner, $repo)
+
+    repo.contents($filePath).read() // Use `.read` to get the raw file.
         .then((contents) => {        // `.fetch` is used for getting JSON
             console.log(contents)
             document.getElementById("content").value = contents;
         });
 
-    repo.contents(document.getElementById('filePath').value).fetch()
+    repo.contents($filePath).fetch()
         .then((info) => {
             // console.log(info.sha, info.content)
             sha = info.sha
@@ -89,9 +105,10 @@ var pullContent = function () {
 
 var pushContent = function () {
 
-    showTitle('测试一下');
-
-    return;
+    if(repo == undefined || $filePath == '') {
+        showTitle("repo未配置")
+        return
+    }
 
     var text = document.getElementById("content").value
 
@@ -102,12 +119,11 @@ var pushContent = function () {
         // branch: 'gh-pages'
     }
 
-    repo.contents(document.getElementById('filePath').value).add(config)
+    repo.contents($filePath).add(config)
         .then((info) => {
             console.log('File Updated. new sha is ', info.commit.sha)
         })
 }
-
 
 
 
