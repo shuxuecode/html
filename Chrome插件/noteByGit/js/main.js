@@ -54,6 +54,10 @@ function getFilePath() {
 }
 
 
+var showTitle = function (msg) {
+    document.getElementById("titleId").innerHTML = msg;
+}
+
 
 function base64Encode(input) {
     return window.btoa(unescape(encodeURIComponent(input)));
@@ -84,6 +88,10 @@ var pullContent = function () {
 }
 
 var pushContent = function () {
+
+    showTitle('测试一下');
+
+    return;
 
     var text = document.getElementById("content").value
 
