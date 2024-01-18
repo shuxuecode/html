@@ -122,6 +122,7 @@ var pushContent = function () {
     repo.contents($filePath).add(config)
         .then((info) => {
             console.log('File Updated. new sha is ', info.commit.sha)
+            sha = info.commit.sha
         })
 }
 
