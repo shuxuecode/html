@@ -1,7 +1,35 @@
 
 
+// Base64 编码中文字符串
+function base64Encode(str) {
+    // 对字符串进行URL编码，然后转换每个编码后的字符段为二进制序列
+    const binaryStr = encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+        });
 
+    // 使用btoa将二进制字符串编码为Base64字符串
+    return btoa(binaryStr);
+}
 
+// Base64 解码字符串（包括中文）
+function base64Decode(base64EncodedString) {
+    // 使用atob解码Base64字符串为二进制字符串
+    const binaryStr = atob(base64EncodedString);
+
+    // 然后把这个字符串转换为普通字符的URL编码形式
+    const codeUnits = new Array(binaryStr.length);
+    for (let i = 0; i < binaryStr.length; i++) {
+        codeUnits[i] = binaryStr.charCodeAt(i);
+    }
+
+    const uriComponent = codeUnits
+        .map(ch => '%' + ('00' + ch.toString(16)).slice(-2))
+        .join('');
+
+    // 使用decodeURIComponent得到原始字符串
+    return decodeURIComponent(uriComponent);
+}
 
 
 
@@ -82,7 +110,7 @@ var pullContent = function () {
     $repo = document.getElementById('repo').value
     $filePath = document.getElementById('filePath').value
 
-    if($token == '' || $owner == '' || $repo == '' || $filePath == '') {
+    if ($token == '' || $owner == '' || $repo == '' || $filePath == '') {
         showTitle("配置为空")
         return
     }
@@ -90,22 +118,51 @@ var pullContent = function () {
     octo = new Octokat({ token: $token })
     repo = octo.repos($owner, $repo)
 
-    repo.contents($filePath).read() // Use `.read` to get the raw file.
-        .then((contents) => {        // `.fetch` is used for getting JSON
-            console.log(contents)
-            document.getElementById("content").value = contents;
-        });
+    // repo.contents($filePath).read() // Use `.read` to get the raw file.
+    //     .then((contents) => {        // `.fetch` is used for getting JSON
+    //         console.log(contents)
+    //         document.getElementById("content").value = contents;
+    //     });
 
     repo.contents($filePath).fetch()
         .then((info) => {
-            // console.log(info.sha, info.content)
+            console.log(info.sha, info.content)
+            console.log(atob(info.content))
+            console.log(base64Decode(info.content))
             sha = info.sha
         });
+
+    // repo.contents('a/code').fetch().then(contents => {
+    //       // 'contents' is an array of files and directories in the repository's root
+    //       console.log(contents)
+    //       console.log(contents.items)
+
+    //       contents.items.forEach(file => {
+    //         console.log(`path: ${file.path}, type: ${file.type}`);
+    //       });
+    // });
+
+    // const path = 'path/to/your/newfile.txt'; // 路径中也包含新文件的名字
+    // const content = 'Hello World!'; // 文件内容
+    // const message = 'Your commit message'; // commit信息
+
+    // // 转换内容为Base64格式
+    // const contentBase64 = base64Encode(content)
+
+    // repo.contents('a/a.txt').add({
+    //   message: message,
+    //   content: contentBase64
+    // }).then(result => {
+    //   console.log(result);
+    // }).catch(error => {
+    //   console.error("Failed to create file: ", error);
+    // });
+
 }
 
 var pushContent = function () {
 
-    if(repo == undefined || $filePath == '') {
+    if (repo == undefined || $filePath == '') {
         showTitle("repo未配置")
         return
     }
