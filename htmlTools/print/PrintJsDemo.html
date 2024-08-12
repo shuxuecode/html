@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <title>打印</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="print.min.css">
+    <style>
+        * {
+            margin: auto;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: rgb(245, 245, 245);
+        }
+
+        thead {
+            color: red;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="main">
+        <table border="1" id="myTable">
+            <thead>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <button type="button"
+        onclick="printJS({ printable: 'myTable', type: 'html' })">
+        Print Form with Header
+    </button>
+
+    <script src="print.min.js"></script>
+    <script>
+
+
+
+
+    </script>
+</body>
+
+</html>
