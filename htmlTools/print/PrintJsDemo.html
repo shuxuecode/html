@@ -4,6 +4,10 @@
     <title>打印</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="print.min.css">
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+
     <style>
         * {
             margin: auto;
@@ -15,15 +19,14 @@
             background-color: rgb(245, 245, 245);
         }
 
-        thead {
-            color: red;
-            font-weight: 600;
-        }
+        
 
     </style>
 </head>
 
 <body>
+
+    <h2>官方文档：    https://printjs.crabbly.com/</h2>
 
     <div class="main">
         <table border="1" id="myTable">
@@ -57,7 +60,16 @@
 
 
     <button type="button"
-        onclick="printJS({ printable: 'myTable', type: 'html' })">
+        onclick="printJS(
+            { 
+                printable: 'myTable', 
+                type: 'html', 
+                css: 'style.css', 
+                style: 'style.css',
+                documentTitle: '打印表格',
+                footer: '底部'
+
+            })">
         Print Form with Header
     </button>
 
